@@ -1,0 +1,6 @@
+framework module UICollectionView_ARDynamicHeightLayoutCell {
+  umbrella header "UICollectionView-ARDynamicHeightLayoutCell-umbrella.h"
+
+  export *
+  module * { export * }
+}

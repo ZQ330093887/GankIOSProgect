@@ -1,0 +1,16 @@
+platform:ios,'8.0'
+use_frameworks!
+target 'GankIOS' do
+    pod 'AFNetworking'
+    pod 'SDWebImage'
+    pod 'MBProgressHUD'
+    pod 'Masonry'
+    pod 'MJRefresh'
+    pod 'IQKeyboardManager'
+    pod 'MJExtension'
+    pod 'SDCycleScrollView'
+    pod 'DACircularProgress'
+    pod 'UITableView+FDTemplateLayoutCell'
+    pod'UICollectionView-ARDynamicHeightLayoutCell'
+
+end
