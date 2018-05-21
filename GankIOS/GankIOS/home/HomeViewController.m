@@ -213,10 +213,27 @@ static NSString* const cellID = @"cellID";
         NSLog(@"成功数据=%@",responseObject);
         //成功获取数据之后停止刷新和加载
         [self endRefresh];
-
         HomeVO * homeData = [HomeBase mj_objectWithKeyValues:responseObject].results;
         self.categoryArray = [HomeBase mj_objectWithKeyValues:responseObject].category;
+        
         if (self.categoryArray != nil && self.categoryArray.count>0) {
+            //遍历数组按我规定的排序重新添加
+            for (int j =0; j<self.categoryArray.count; j++) {
+                //将福利提到最前面
+                if ([self.categoryArray[j] isEqualToString:@"福利"]) {
+                    [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:0];
+                }
+                //IOS 开发，所以IOS排第二
+                if ([self.categoryArray[j] isEqualToString:@"iOS"]) {
+                    [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:1];
+                }
+                //本人也是Android开发，所以android排第三
+                if ([self.categoryArray[j] isEqualToString:@"Android"]) {
+                    [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:2];
+                }
+                
+            }
+            
             for (NSString *category in self.categoryArray) {
                 if ([category isEqualToString:@"iOS"]) {
                     [self.dictionary setValue:homeData.iOS forKey:category];
@@ -228,6 +245,8 @@ static NSString* const cellID = @"cellID";
                     [self.dictionary setValue:homeData.resouse  forKey:category];
                 }else if ([category isEqualToString:@"瞎推荐"]){
                     [self.dictionary setValue:homeData.recommend forKey:category];
+                }else if ([category isEqualToString:@"App"]){
+                    [self.dictionary setValue:homeData.App forKey:category];
                 }else if ([category isEqualToString:@"前端"]){
                     [self.dictionary setValue:homeData.html  forKey:category];
                 }else if([category isEqualToString:@"福利"]){
@@ -239,9 +258,9 @@ static NSString* const cellID = @"cellID";
                 }
             }
         }else{
-             _footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
+            
         }
-        
+        _footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
         //刷新数据
         [_tableView reloadData];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

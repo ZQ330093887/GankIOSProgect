@@ -19,6 +19,7 @@
              @"audio"    : @"BookVO",
              @"resouse"    : @"BookVO",
              @"wetify"    : @"BookVO",
+             @"App"    : @"BookVO",
              @"recommend"   :@"BookVO"
              };
 }

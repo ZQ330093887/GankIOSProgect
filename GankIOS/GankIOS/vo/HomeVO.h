@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface HomeVO : NSObject
-@property (strong, nonatomic) NSMutableArray *Android;
-@property (strong, nonatomic) NSMutableArray *iOS;
+@property (strong, nonatomic) NSMutableArray * Android;
+@property (strong, nonatomic) NSMutableArray * iOS;
 @property (strong, nonatomic) NSMutableArray * audio;
 @property (strong, nonatomic) NSMutableArray * html;
 @property (strong, nonatomic) NSMutableArray * resouse;
 @property (strong, nonatomic) NSMutableArray * recommend;
 @property (strong, nonatomic) NSMutableArray * wetify;
+@property (strong, nonatomic) NSMutableArray * App;
 
 @end
