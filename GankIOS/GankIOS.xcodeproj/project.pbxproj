@@ -23,6 +23,11 @@
 		3771687F20A31C20001DD2D5 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771687E20A31C20001DD2D5 /* HomeViewController.m */; };
 		3771688320A31CBE001DD2D5 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771688220A31CBE001DD2D5 /* CategoryViewController.m */; };
 		3771688A20A325FA001DD2D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771688920A325FA001DD2D5 /* Assets.xcassets */; };
+		37808A3620B5CB6200E3F025 /* WYWebProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A2D20B5CB5F00E3F025 /* WYWebProgressLayer.m */; };
+		37808A3720B5CB6200E3F025 /* WLWebProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */; };
+		37808A3820B5CB6200E3F025 /* NSTimer+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3020B5CB6000E3F025 /* NSTimer+addition.m */; };
+		37808A3920B5CB6200E3F025 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3220B5CB6000E3F025 /* UIView+Frame.m */; };
+		37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3320B5CB6100E3F025 /* WYWebController.m */; };
 		37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD7E20AFE4E400BD987B /* HomeCell.m */; };
 		37D1CD8220AFE53C00BD987B /* HomeVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8120AFE53C00BD987B /* HomeVO.m */; };
 		37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8420AFEC4B00BD987B /* HomeBase.m */; };
@@ -65,6 +70,16 @@
 		3771688120A31CBE001DD2D5 /* CategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		3771688220A31CBE001DD2D5 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		3771688920A325FA001DD2D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		37808A2C20B5CB5F00E3F025 /* WYWebProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYWebProgressLayer.h; sourceTree = "<group>"; };
+		37808A2D20B5CB5F00E3F025 /* WYWebProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYWebProgressLayer.m; sourceTree = "<group>"; };
+		37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWebProgressLayer.m; sourceTree = "<group>"; };
+		37808A2F20B5CB6000E3F025 /* WYWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYWebController.h; sourceTree = "<group>"; };
+		37808A3020B5CB6000E3F025 /* NSTimer+addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+addition.m"; sourceTree = "<group>"; };
+		37808A3120B5CB6000E3F025 /* WLWebProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWebProgressLayer.h; sourceTree = "<group>"; };
+		37808A3220B5CB6000E3F025 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		37808A3320B5CB6100E3F025 /* WYWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYWebController.m; sourceTree = "<group>"; };
+		37808A3420B5CB6100E3F025 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		37808A3520B5CB6200E3F025 /* NSTimer+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+addition.h"; sourceTree = "<group>"; };
 		37D1CD7D20AFE4E400BD987B /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		37D1CD7E20AFE4E400BD987B /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		37D1CD8020AFE53C00BD987B /* HomeVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVO.h; sourceTree = "<group>"; };
@@ -170,6 +185,7 @@
 		3771686520A31AFD001DD2D5 /* GankIOS */ = {
 			isa = PBXGroup;
 			children = (
+				37E8DC7320B5BE3A00185B3D /* webview */,
 				3708DBF320AE6DE500991674 /* widget */,
 				3770F50420AC24E3007EAA06 /* view */,
 				37F6A27020A9ECA70061FD50 /* vo */,
@@ -209,6 +225,23 @@
 				370A216720AD862A00973F48 /* CategoryWelfareViewController.m */,
 			);
 			path = category;
+			sourceTree = "<group>";
+		};
+		37E8DC7320B5BE3A00185B3D /* webview */ = {
+			isa = PBXGroup;
+			children = (
+				37808A3520B5CB6200E3F025 /* NSTimer+addition.h */,
+				37808A3020B5CB6000E3F025 /* NSTimer+addition.m */,
+				37808A3420B5CB6100E3F025 /* UIView+Frame.h */,
+				37808A3220B5CB6000E3F025 /* UIView+Frame.m */,
+				37808A3120B5CB6000E3F025 /* WLWebProgressLayer.h */,
+				37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */,
+				37808A2F20B5CB6000E3F025 /* WYWebController.h */,
+				37808A3320B5CB6100E3F025 /* WYWebController.m */,
+				37808A2C20B5CB5F00E3F025 /* WYWebProgressLayer.h */,
+				37808A2D20B5CB5F00E3F025 /* WYWebProgressLayer.m */,
+			);
+			path = webview;
 			sourceTree = "<group>";
 		};
 		37F6A27020A9ECA70061FD50 /* vo */ = {
@@ -407,18 +440,23 @@
 				3770F50320AC2474007EAA06 /* CaneryCell.m in Sources */,
 				37F6A27320A9ECC30061FD50 /* BaseVO.m in Sources */,
 				3708DBF820AE6E1B00991674 /* STPhotoBroswer.m in Sources */,
+				37808A3920B5CB6200E3F025 /* UIView+Frame.m in Sources */,
 				370A216820AD862A00973F48 /* CategoryWelfareViewController.m in Sources */,
 				3771687F20A31C20001DD2D5 /* HomeViewController.m in Sources */,
 				3708DBFD20AE6F6400991674 /* UIView+Extension.m in Sources */,
+				37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */,
 				372D429C20A443910022875A /* AboutViewController.m in Sources */,
 				370A216B20AD8D6600973F48 /* WelfareCollViewCell.m in Sources */,
 				37D1CD8220AFE53C00BD987B /* HomeVO.m in Sources */,
+				37808A3820B5CB6200E3F025 /* NSTimer+addition.m in Sources */,
 				37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */,
 				3708DBF920AE6E1B00991674 /* STImageVIew.m in Sources */,
 				372D429820A3E6B50022875A /* MineViewController.m in Sources */,
+				37808A3620B5CB6200E3F025 /* WYWebProgressLayer.m in Sources */,
 				3771688320A31CBE001DD2D5 /* CategoryViewController.m in Sources */,
 				37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */,
 				37F6A26F20A9DD360061FD50 /* CategoryListViewController.m in Sources */,
+				37808A3720B5CB6200E3F025 /* WLWebProgressLayer.m in Sources */,
 				3771686B20A31AFD001DD2D5 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

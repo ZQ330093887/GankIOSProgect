@@ -16,6 +16,8 @@
 #import "MBProgressHUD.h"
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
+#import "STPhotoBroswer.h"
+#import "WYWebController.h"
 @interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>{
         NSInteger _page;
 }
@@ -48,6 +50,25 @@ static NSString* const cellID = @"cellID";
 
 }
 
+- (void)showTabBar {
+    if (self.tabBarController.tabBar.hidden == NO){
+        return;
+    }
+    UIView *contentView;
+    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]]){
+        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
+    }else{
+        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
+        contentView.frame = CGRectMake(contentView.bounds.origin.x, contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
+    }
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self showTabBar];
+}
+
 -(void) initView{
     //刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -66,6 +87,11 @@ static NSString* const cellID = @"cellID";
         UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 520)];
          //头部福利图片view
         _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerLable.frame.size.width, headerLable.frame.size.height)];
+        //允许操作
+        _imageView.userInteractionEnabled = YES;
+        //添加手势
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        [_imageView addGestureRecognizer:singleTap];
         //头部日期
         UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-95, 520-40, 74, 74)];
         dataView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"date_bg"]];
@@ -107,21 +133,22 @@ static NSString* const cellID = @"cellID";
 
 -(NSString *) getMonthAndDay: (NSString*)timeStr :(NSInteger)type{
 
-    NSString * time;
+    NSString * time =@"";
     // 日期格式化类
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     // 设置日期格式(为了转换成功)
     fmt.dateFormat = @"yyyy-MM-dd";
     NSDate *date = [fmt dateFromString:timeStr];
     NSCalendar *caldendar = [NSCalendar currentCalendar];// 获取日历
-    NSInteger month = [caldendar component:NSCalendarUnitMonth fromDate:date];
-    NSInteger day = [caldendar component:NSCalendarUnitDay fromDate:date];
-    NSArray *monthArr = [NSArray arrayWithArray:caldendar.shortMonthSymbols];  // 获取日历月数组
-
-    if (type==0) {//返回月
-        time =  monthArr[month - 1];
-    }else if (type ==1){//返回日
-        time =  [NSString stringWithFormat:@"%ld",day];;
+    if (date !=nil) {
+        NSInteger month = [caldendar component:NSCalendarUnitMonth fromDate:date];
+        NSInteger day = [caldendar component:NSCalendarUnitDay fromDate:date];
+        NSArray *monthArr = [NSArray arrayWithArray:caldendar.shortMonthSymbols];  // 获取日历月数组
+        if (type==0) {//返回月
+            time =  monthArr[month - 1];
+        }else if (type ==1){//返回日
+            time =  [NSString stringWithFormat:@"%ld",day];;
+        }
     }
     return time;
 }
@@ -138,6 +165,13 @@ static NSString* const cellID = @"cellID";
         _dictionary = [NSMutableDictionary dictionaryWithCapacity:0];
     }
     return _dictionary;
+}
+
+-(NSMutableArray *)imag{
+    if (!_imag) {
+        _imag = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _imag;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -204,6 +238,7 @@ static NSString* const cellID = @"cellID";
     
     NSString * baseUrl = @"http://gank.io/api/day/";
     NSString * urlStr = [NSString stringWithFormat:@"%@%@", baseUrl,[self getDateToday]];
+    //NSString * urlStr = @"http://gank.io/api/day/2018/5/22";
     NSLog(@"我的URL:%@",urlStr);
     //网络请求
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -211,54 +246,38 @@ static NSString* const cellID = @"cellID";
         NSLog(@"这里可以在加载进度条中设置当前进度");
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"成功数据=%@",responseObject);
+        //数据获取成功之后就跟新缓存
+        NSData *mData= [NSJSONSerialization dataWithJSONObject:(NSDictionary *)responseObject options:NSJSONWritingPrettyPrinted error:nil];
         //成功获取数据之后停止刷新和加载
         [self endRefresh];
-        HomeVO * homeData = [HomeBase mj_objectWithKeyValues:responseObject].results;
+        HomeVO *homeData = [HomeBase mj_objectWithKeyValues:responseObject].results;
         self.categoryArray = [HomeBase mj_objectWithKeyValues:responseObject].category;
         
-        if (self.categoryArray != nil && self.categoryArray.count>0) {
-            //遍历数组按我规定的排序重新添加
-            for (int j =0; j<self.categoryArray.count; j++) {
-                //将福利提到最前面
-                if ([self.categoryArray[j] isEqualToString:@"福利"]) {
-                    [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:0];
-                }
-                //IOS 开发，所以IOS排第二
-                if ([self.categoryArray[j] isEqualToString:@"iOS"]) {
-                    [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:1];
-                }
-                //本人也是Android开发，所以android排第三
-                if ([self.categoryArray[j] isEqualToString:@"Android"]) {
-                    [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:2];
-                }
-                
+        if (self.categoryArray != nil && self.categoryArray.count >0) {
+            //判断是否已经缓存过该数据，如果缓存过就不做任何操作如果没有则设置新缓存数据
+            BOOL isDef = false;
+            NSData *dataCache = [self readLocalCacheDataWithKey:baseUrl];
+            NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:dataCache options:NSJSONReadingMutableLeaves error:nil];
+            HomeVO *homeCache = [HomeBase mj_objectWithKeyValues:jsonObject].results;
+            if (homeCache != nil) {
+                NSLog(@"开始*************");
+                isDef = [homeData.Android isEqual: homeCache.Android];
             }
-            
-            for (NSString *category in self.categoryArray) {
-                if ([category isEqualToString:@"iOS"]) {
-                    [self.dictionary setValue:homeData.iOS forKey:category];
-                }else if ([category isEqualToString:@"Android"]){
-                    [self.dictionary setValue:homeData.Android forKey:category];
-                }else if ([category isEqualToString:@"休息视频"]){
-                    [self.dictionary setValue:homeData.audio  forKey:category];
-                }else if ([category isEqualToString:@"拓展资源"]){
-                    [self.dictionary setValue:homeData.resouse  forKey:category];
-                }else if ([category isEqualToString:@"瞎推荐"]){
-                    [self.dictionary setValue:homeData.recommend forKey:category];
-                }else if ([category isEqualToString:@"App"]){
-                    [self.dictionary setValue:homeData.App forKey:category];
-                }else if ([category isEqualToString:@"前端"]){
-                    [self.dictionary setValue:homeData.html  forKey:category];
-                }else if([category isEqualToString:@"福利"]){
-                    for (BookVO *b in homeData.wetify) {
-                        [_imageView sd_setImageWithURL:[NSURL URLWithString:b.url] placeholderImage:[UIImage imageNamed:@"logo"]];
-                        self.m.text = [self getMonthAndDay:b.desc :0];
-                        self.d.text = [self getMonthAndDay:b.desc :1];
-                    }
-                }
+
+            if (!isDef) {
+                [self writeLocalCacheData:mData withKey:baseUrl];
+                NSLog(@"结束*************");
             }
+            //设置最新请求数据
+            [self setDataToView:homeData];
         }else{
-            
+            NSData *data = [self readLocalCacheDataWithKey:baseUrl];
+            NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            NSLog(@"缓存数据=%@",jsonObject);
+            HomeVO *homeData = [HomeBase mj_objectWithKeyValues:jsonObject].results;
+            self.categoryArray = [HomeBase mj_objectWithKeyValues:jsonObject].category;
+            //设置缓存数据
+            [self setDataToView:homeData];
         }
         _footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
         //刷新数据
@@ -327,6 +346,125 @@ static NSString* const cellID = @"cellID";
     
     NSLog(@"当前年月日%@",dateStr);
     return dateStr;
+}
+
+//设置数据
+- (void) setDataToView:(HomeVO *)homeData{
+    //遍历数组按我规定的排序重新添加
+    for (int j =0; j<self.categoryArray.count; j++) {
+        //将福利提到最前面
+        if ([self.categoryArray[j] isEqualToString:@"福利"]) {
+            [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:0];
+        }
+        //IOS 开发，所以IOS排第二
+        if ([self.categoryArray[j] isEqualToString:@"iOS"]) {
+            [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:1];
+        }
+        //本人也是Android开发，所以android排第三
+        if ([self.categoryArray[j] isEqualToString:@"Android"]) {
+            [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:2];
+        }
+    }
+    
+    for (NSString *category in self.categoryArray) {
+        if ([category isEqualToString:@"iOS"]) {
+            [self.dictionary setValue:homeData.iOS forKey:category];
+        }else if ([category isEqualToString:@"Android"]){
+            [self.dictionary setValue:homeData.Android forKey:category];
+        }else if ([category isEqualToString:@"休息视频"]){
+            [self.dictionary setValue:homeData.audio  forKey:category];
+        }else if ([category isEqualToString:@"拓展资源"]){
+            [self.dictionary setValue:homeData.resouse  forKey:category];
+        }else if ([category isEqualToString:@"瞎推荐"]){
+            [self.dictionary setValue:homeData.recommend forKey:category];
+        }else if ([category isEqualToString:@"App"]){
+            [self.dictionary setValue:homeData.App forKey:category];
+        }else if ([category isEqualToString:@"前端"]){
+            [self.dictionary setValue:homeData.html  forKey:category];
+        }else if([category isEqualToString:@"福利"]){
+            [self.imag addObjectsFromArray:homeData.wetify];
+            for (BookVO *b in homeData.wetify) {
+                [_imageView sd_setImageWithURL:[NSURL URLWithString:b.url] placeholderImage:[UIImage imageNamed:@"logo"]];
+                self.m.text = [self getMonthAndDay:b.desc :0];
+                self.d.text = [self getMonthAndDay:b.desc :1];
+            }
+        }
+    }
+}
+
+//item 点击事件
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"点击了");
+    for (NSString * key in self.dictionary) {
+        if ([key isEqualToString:self.categoryArray[indexPath.section]]) {
+            BookVO *book = (BookVO *)[self.dictionary[key] objectAtIndex:indexPath.row];
+            WYWebController *webVC = [WYWebController new];
+            webVC.url = book.url;
+            [self.navigationController pushViewController:webVC animated:YES];
+        }
+    }
+}
+
+//头部图片的点击事件
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {
+    NSMutableArray *photoURLArray = [NSMutableArray array];
+    for (BookVO *vo in self.imag) {
+        [photoURLArray addObject:vo.url];
+    }
+
+    STPhotoBroswer * broser = [[STPhotoBroswer alloc] initWithImageArray:photoURLArray currentIndex:0];
+    [broser show];
+}
+
+// 写缓存
+- (void)writeLocalCacheData:(NSData *)data withKey:(NSString *)key {
+    // 设置存储路径
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0]
+                            stringByAppendingPathComponent:key];
+    NSLog(@"存储路径%@",cachesPath);
+    // 判读缓存数据是否存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {//存在
+        // 删除旧的缓存数据
+         NSLog(@"缓存数据存在");
+        [[NSFileManager defaultManager] removeItemAtPath:cachesPath error:nil];
+        //写入缓存数据
+        [data writeToFile:cachesPath atomically:YES];
+    }else{//不存在的情况下创建，返回值为是否创建成功
+        BOOL res=[[NSFileManager defaultManager] createDirectoryAtPath:cachesPath withIntermediateDirectories:YES attributes:nil error:nil];
+        if (res) {//创建成功之后写入缓存
+             NSLog(@"创建成功");
+            //写入缓存数据
+            [data writeToFile:cachesPath atomically:YES];
+        }
+    }
+     NSLog(@"缓存数据完成");
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
+        // 删除旧的缓存数据
+        NSLog(@"缓存成功");
+    }
+}
+
+// 读缓存
+- (NSData *)readLocalCacheDataWithKey:(NSString *)key {
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0]
+                            stringByAppendingPathComponent:key];
+    // 判读缓存数据是否存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
+        // 读取缓存数据
+        return [NSData dataWithContentsOfFile:cachesPath];
+    }
+    return nil;
+}
+
+// 删缓存
+- (void)deleteLocalCacheDataWithKey:(NSString *)key {
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0]
+                            stringByAppendingPathComponent:key];
+    // 判读缓存数据是否存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
+        // 删除缓存数据
+        [[NSFileManager defaultManager] removeItemAtPath:cachesPath error:nil];
+    }
 }
 
 @end

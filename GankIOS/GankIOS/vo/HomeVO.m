@@ -34,4 +34,48 @@
              @"html":@"前端"
              };
 }
+
+
+-(BOOL)isEqual:(id)object{
+    if (self == object) return YES;
+    if ([self class] != [object class]) return NO;
+    HomeVO *home = (HomeVO*)object;
+    if (![_iOS isEqual:home.iOS]) {
+        return NO;
+    }
+    if (![_Android isEqual:home.Android]) {
+        return NO;
+    }
+    if (![_html isEqual:home.html]) {
+        return NO;
+    }
+    if (![_audio isEqual:home.audio]) {
+        return NO;
+    }
+    if (![_resouse isEqual:home.resouse]) {
+        return NO;
+    }
+    if (![_wetify isEqual:home.wetify]) {
+        return NO;
+    }
+    if (![_App isEqual:home.App]) {
+        return NO;
+    }
+    if (![_recommend isEqual:home.recommend]) {
+        return NO;
+    }
+    return YES;
+}
+
+-(NSUInteger)hash{
+    NSUInteger ios = [_iOS hash];
+    NSUInteger android = [_Android hash];
+    NSUInteger html = [_html hash];
+    NSUInteger audio = [_audio hash];
+    NSUInteger resouse = [_resouse hash];
+    NSUInteger wetify = [_wetify hash];
+    NSUInteger app = [_App hash];
+    NSUInteger recommend = [_recommend hash];
+    return ios^android^html^audio^resouse^wetify^app^recommend;
+}
 @end

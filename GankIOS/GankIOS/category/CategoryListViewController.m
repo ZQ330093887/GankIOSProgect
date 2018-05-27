@@ -8,6 +8,7 @@
 
 #import "CategoryListViewController.h"
 #import "CommonTableViewCellView.h"
+#import "WYWebController.h"
 #import "AFNetworking.h"
 #import "MJExtension.h"
 #import "MBProgressHUD.h"
@@ -137,8 +138,10 @@ static NSString* const cellID = @"cellID";
  */
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSUInteger rowNo = indexPath.row;
-    BookVO *Book = (BookVO *)[self.bookArray objectAtIndex:rowNo];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:Book.url]];
+    BookVO *book = (BookVO *)[self.bookArray objectAtIndex:rowNo];
+    WYWebController *webVC = [WYWebController new];
+    webVC.url = book.url;
+    [self.navigationController pushViewController:webVC animated:YES];
     //item 按下抬起的时候返回正常背景
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     
