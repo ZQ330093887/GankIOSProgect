@@ -28,6 +28,8 @@
 		37808A3820B5CB6200E3F025 /* NSTimer+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3020B5CB6000E3F025 /* NSTimer+addition.m */; };
 		37808A3920B5CB6200E3F025 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3220B5CB6000E3F025 /* UIView+Frame.m */; };
 		37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3320B5CB6100E3F025 /* WYWebController.m */; };
+		37A8BCDD20BC53FA0032B253 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */; };
+		37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1486B20BD2427002B8A65 /* BaseViewController.m */; };
 		37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD7E20AFE4E400BD987B /* HomeCell.m */; };
 		37D1CD8220AFE53C00BD987B /* HomeVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8120AFE53C00BD987B /* HomeVO.m */; };
 		37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8420AFEC4B00BD987B /* HomeBase.m */; };
@@ -80,6 +82,10 @@
 		37808A3320B5CB6100E3F025 /* WYWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYWebController.m; sourceTree = "<group>"; };
 		37808A3420B5CB6100E3F025 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		37808A3520B5CB6200E3F025 /* NSTimer+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+addition.h"; sourceTree = "<group>"; };
+		37A8BCDB20BC53FA0032B253 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		37C1486A20BD2427002B8A65 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		37C1486B20BD2427002B8A65 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		37D1CD7D20AFE4E400BD987B /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		37D1CD7E20AFE4E400BD987B /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		37D1CD8020AFE53C00BD987B /* HomeVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVO.h; sourceTree = "<group>"; };
@@ -185,6 +191,7 @@
 		3771686520A31AFD001DD2D5 /* GankIOS */ = {
 			isa = PBXGroup;
 			children = (
+				37C1486920BD23FA002B8A65 /* base */,
 				37E8DC7320B5BE3A00185B3D /* webview */,
 				3708DBF320AE6DE500991674 /* widget */,
 				3770F50420AC24E3007EAA06 /* view */,
@@ -208,6 +215,7 @@
 		3771687C20A31BAC001DD2D5 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				37A8BCDA20BC53E00032B253 /* history */,
 				3771687D20A31C20001DD2D5 /* HomeViewController.h */,
 				3771687E20A31C20001DD2D5 /* HomeViewController.m */,
 			);
@@ -225,6 +233,24 @@
 				370A216720AD862A00973F48 /* CategoryWelfareViewController.m */,
 			);
 			path = category;
+			sourceTree = "<group>";
+		};
+		37A8BCDA20BC53E00032B253 /* history */ = {
+			isa = PBXGroup;
+			children = (
+				37A8BCDB20BC53FA0032B253 /* HistoryViewController.h */,
+				37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */,
+			);
+			path = history;
+			sourceTree = "<group>";
+		};
+		37C1486920BD23FA002B8A65 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				37C1486A20BD2427002B8A65 /* BaseViewController.h */,
+				37C1486B20BD2427002B8A65 /* BaseViewController.m */,
+			);
+			path = base;
 			sourceTree = "<group>";
 		};
 		37E8DC7320B5BE3A00185B3D /* webview */ = {
@@ -379,6 +405,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-GankIOS/Pods-GankIOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
@@ -393,6 +420,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
@@ -452,6 +480,8 @@
 				37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */,
 				3708DBF920AE6E1B00991674 /* STImageVIew.m in Sources */,
 				372D429820A3E6B50022875A /* MineViewController.m in Sources */,
+				37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */,
+				37A8BCDD20BC53FA0032B253 /* HistoryViewController.m in Sources */,
 				37808A3620B5CB6200E3F025 /* WYWebProgressLayer.m in Sources */,
 				3771688320A31CBE001DD2D5 /* CategoryViewController.m in Sources */,
 				37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */,

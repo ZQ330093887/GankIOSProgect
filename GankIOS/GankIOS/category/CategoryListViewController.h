@@ -6,9 +6,8 @@
 //  Copyright © 2018年 周琼. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface CategoryListViewController : UIViewController
-@property(nonatomic,retain) NSString * mTitle ;
-@property (nonatomic , retain) UITableView *tableView;
+@interface CategoryListViewController : BaseViewController
+
 @end

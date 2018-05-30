@@ -6,8 +6,8 @@
 //  Copyright © 2018年 周琼. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "BaseViewController.h"
 
-@interface CategoryWelfareViewController : UIViewController
-@property(nonatomic,retain) NSString * mTitle ;
+@interface CategoryWelfareViewController : BaseViewController
+
 @end

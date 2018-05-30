@@ -43,20 +43,6 @@ NSArray<NSString *> *pictures;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)showTabBar {
-    if (self.tabBarController.tabBar.hidden == NO){
-        return;
-    }
-    UIView *contentView;
-    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]]){
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }else{
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-        contentView.frame = CGRectMake(contentView.bounds.origin.x, contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    }
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 //顶部导航栏
 -(void) initBarItem{
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_search"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];

@@ -13,16 +13,16 @@
 #import "MJRefresh.h"
 #import "BookVO.h"
 #import "BaseVO.h"
+#import "MBProgressHUD.h"
 
 #import "STImageVIew.h"
 #import "STPhotoBroswer.h"
 
-@interface CategoryWelfareViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>{
-    NSInteger _page;
-}
+@interface CategoryWelfareViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-@property (nonatomic,strong) UICollectionView *collectionView;
 @property (nonatomic,strong) NSMutableArray *welfareArray;//数据存储
+
+
 @end
 
 
@@ -34,72 +34,14 @@ static NSString* const cellID = @"cellID";
     [self hideTabBar];
     [self addLeftButton];
     [self initView];
-    self.view.backgroundColor = [UIColor whiteColor];
-    
+    //加载进度条
+    [self showTextDialog:@"加载中..."];
     [self getNetworkData:YES];
     // Do any additional setup after loading the view.
 }
 
-- (void)hideTabBar {
-    if (self.tabBarController.tabBar.hidden == YES) {
-        return;
-    }
-    UIView *contentView;
-    if ( [[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] ){
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }else{
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-        contentView.frame = CGRectMake(contentView.bounds.origin.x,  contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height + self.tabBarController.tabBar.frame.size.height);
-    }
-    self.tabBarController.tabBar.hidden = YES;
-}
-
-- (void) addLeftButton{
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.title = _mTitle;
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    backItem.title = @"";
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_back"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
-}
-
-- (void)selectRightAction:(id)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(UICollectionView *)collectionView{
-    if (!_collectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-        layout.minimumLineSpacing = 15.f;
-        layout.itemSize = CGSizeMake((self.view.frame.size.width - 15*3)/2, 210);
-    
-        //创建UICollectionView
-        _collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:layout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        _collectionView.contentInset = UIEdgeInsetsMake(15, 15, 15, 15);
-        //添加到视图
-        [self.view addSubview:_collectionView];
-        _collectionView.scrollsToTop = NO;
-        //开启分页
-        _collectionView.pagingEnabled = YES;
-        //不显示滚动条
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        
-        _collectionView.alwaysBounceVertical = YES;
-        //弹簧效果设置
-        _collectionView.bounces = YES;
-        //设置代理
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        //注册cell
-        [_collectionView registerClass:[WelfareCollViewCell class] forCellWithReuseIdentifier:cellID];
-    }
-    return _collectionView;
-}
-
 //item 点击事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-   
     NSMutableArray *photoURLArray = [NSMutableArray array];
     for (BookVO *meizi in self.welfareArray) {
         [photoURLArray addObject:meizi.url];
@@ -107,27 +49,28 @@ static NSString* const cellID = @"cellID";
     
     STPhotoBroswer * broser = [[STPhotoBroswer alloc] initWithImageArray:photoURLArray currentIndex:indexPath.row];
     [broser show];
-    
 }
 
 -(void) initView{
-    //刷新
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        _page = 1;
-        [self getNetworkData:YES];
-    }];
-    // 隐藏时间
-    header.lastUpdatedTimeLabel.hidden = YES;
-    //设置状态
-    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
-    [header setTitle:@"数据加载中" forState:MJRefreshStatePulling];
-    [header setTitle:@"Loading ..." forState:MJRefreshStateRefreshing];
-
-    self.collectionView.mj_header = header;
-    //加载
-    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [self getNetworkData:NO];
-    }];
+    //添加到视图
+    [self.view addSubview:self.collectionView];
+    //设置代理
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+    //注册cell
+    [self.collectionView registerClass:[WelfareCollViewCell class] forCellWithReuseIdentifier:cellID];
+    
+    // 防止 block  循环 引用
+    __weak typeof(self) WeakSelf = self;
+    [self createCollRefresh];
+    //刷新或者加载
+    self.loadingData = ^(BOOL isRefresh) {
+        if (isRefresh) {
+            WeakSelf.page = 1;
+        }
+        [WeakSelf getNetworkData:isRefresh];
+    };
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -150,50 +93,40 @@ static NSString* const cellID = @"cellID";
     cell.picBook = book;
     return cell;
 }
-//停止刷新
-- (void) endRefresh{
-    if (_page ==1) {
-        [self.collectionView.mj_header endRefreshing];
-    }
-    [self.collectionView.mj_footer endRefreshing];
-}
+
 //加载数据
 -(void) getNetworkData:(BOOL)isRefresh{
     if (isRefresh) {
-        _page=1;
+        self.page=1;
     }else{
-        _page++;
+        self.page++;
     }
     NSString * baseUrl = @"http://gank.io/api/data/福利/10";
-    NSString * urlStr = [NSString stringWithFormat:@"%@/%ld", baseUrl ,_page];
+    NSString * urlStr = [NSString stringWithFormat:@"%@/%ld", baseUrl ,self.page];
     NSLog(@"我的URL:%@",urlStr);
     urlStr = [urlStr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:urlStr parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        NSLog(@"当前进去");
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"成功数据=%@",responseObject);
+    
+    __weak typeof(self) WeakSelf = self;
+    [super GetRequsetDataUrlString:urlStr Parameters:nil];
+    self.GetSuccess = ^(id responseObject) {
         //成功获取数据之后停止刷新和加载
-        [self endRefresh];
+        [WeakSelf endCollRefresh];
         NSArray *response = [BaseVO mj_objectWithKeyValues:responseObject].results;
         if (response != nil && response.count > 0) {
             if (isRefresh) {//刷新
                 //如果是刷新，向数组中添加数据之前清空数组
-                [self.welfareArray removeAllObjects];
-                self.welfareArray = [NSMutableArray arrayWithArray:response];
+                [WeakSelf.welfareArray removeAllObjects];
+                WeakSelf.welfareArray = [NSMutableArray arrayWithArray:response];
             }else{//上拉加载更多
-                [self.welfareArray addObjectsFromArray:response];
+                [WeakSelf.welfareArray addObjectsFromArray:response];
             }
         }else{
             //没有数据，显示空白界面
             NSLog(@"没有数据，显示空白界面");
         }
         //刷新数据
-        [self.collectionView reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"失败了=%@",error);
-        [self.collectionView.mj_header endRefreshing];
-    }];
+        [WeakSelf.collectionView reloadData];
+    };
 }
 
 -(NSMutableArray *)welfareArray{
@@ -202,4 +135,5 @@ static NSString* const cellID = @"cellID";
     }
     return _welfareArray;
 }
+
 @end

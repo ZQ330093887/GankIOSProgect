@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : BaseViewController
 
-@property(nonatomic,retain) UITableView *tableView;
 @property(nonatomic,retain) UIImageView *imageView;
 @property(nonatomic,retain) UILabel * footerLabel;
 @property(nonatomic,retain) UILabel * d;

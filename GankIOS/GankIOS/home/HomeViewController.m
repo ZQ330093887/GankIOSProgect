@@ -18,17 +18,13 @@
 #import "UIImageView+WebCache.h"
 #import "STPhotoBroswer.h"
 #import "WYWebController.h"
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>{
-        NSInteger _page;
-}
+#import "HistoryViewController.h"
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSMutableArray *imag;//数据头部图片存储
 @property (nonatomic,strong) NSMutableArray *categoryArray;//存储类别
 @property (nonatomic,strong) NSMutableDictionary * dictionary;
-@property (nonnull,strong) MBProgressHUD* proHUD;//加载进度条
 
-//加载进度条
--(IBAction)showTextDialog:(NSString *)sender;
 //获取当前年月日
 -(NSString*)getDateToday;
 
@@ -44,24 +40,9 @@ static NSString* const cellID = @"cellID";
     //加载进度条
     [self showTextDialog:@"加载中..."];
     //加载数据
-    [self getNetworkData:YES];
+    [self getNetworkData:YES getDay:[self getDateToday]];
     self.view.backgroundColor = [UIColor grayColor];
     // Do any additional setup after loading the view.
-
-}
-
-- (void)showTabBar {
-    if (self.tabBarController.tabBar.hidden == NO){
-        return;
-    }
-    UIView *contentView;
-    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]]){
-        contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }else{
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-        contentView.frame = CGRectMake(contentView.bounds.origin.x, contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    }
-    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,59 +51,47 @@ static NSString* const cellID = @"cellID";
 }
 
 -(void) initView{
-    //刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        _page = 1;
-        [self getNetworkData:YES];
-    }];
-}
-
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        [_tableView registerClass:[HomeCell class] forCellReuseIdentifier:cellID];
-        //头部view
-        UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 520)];
-         //头部福利图片view
-        _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerLable.frame.size.width, headerLable.frame.size.height)];
-        //允许操作
-        _imageView.userInteractionEnabled = YES;
-        //添加手势
-        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-        [_imageView addGestureRecognizer:singleTap];
-        //头部日期
-        UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-95, 520-40, 74, 74)];
-        dataView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"date_bg"]];
-        
-        _d = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 74, 30)];
-        _d.font = [UIFont systemFontOfSize:24];
-        _d.textAlignment  = NSTextAlignmentCenter;
-        _m = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 74, 40)];
-        _m.textAlignment  = NSTextAlignmentCenter;
-        [dataView addSubview:_m];
-        [dataView addSubview:_d];
-        [headerLable addSubview:_imageView];
-        [headerLable addSubview:dataView];
-        _tableView.tableHeaderView = headerLable;
-        
-        //创建一个脚Label
-        _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
-        _footerLabel.font =  [UIFont systemFontOfSize:12];
-        _footerLabel.textColor= [UIColor grayColor];
-        _footerLabel.textAlignment  = NSTextAlignmentCenter;
-        _tableView.tableFooterView = _footerLabel;
+    self.mainTableView.delegate = self;
+    self.mainTableView.dataSource = self;
+    [self.mainTableView registerClass:[HomeCell class] forCellReuseIdentifier:cellID];
+    //头部view
+    UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 520)];
+    //头部福利图片view
+    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerLable.frame.size.width, headerLable.frame.size.height)];
+    //允许操作
+    _imageView.userInteractionEnabled = YES;
+    //添加手势
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [_imageView addGestureRecognizer:singleTap];
+    //头部日期
+    UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-95, 520-40, 74, 74)];
+    dataView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"date_bg"]];
     
-        [self.view addSubview:_tableView];
-    }
-    return _tableView;
+    _d = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 74, 30)];
+    _d.font = [UIFont systemFontOfSize:24];
+    _d.textAlignment  = NSTextAlignmentCenter;
+    _m = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 74, 40)];
+    _m.textAlignment  = NSTextAlignmentCenter;
+    [dataView addSubview:_m];
+    [dataView addSubview:_d];
+    [headerLable addSubview:_imageView];
+    [headerLable addSubview:dataView];
+    self.mainTableView.tableHeaderView = headerLable;
+    
+    //创建一个脚Label
+    _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    _footerLabel.font =  [UIFont systemFontOfSize:12];
+    _footerLabel.textColor= [UIColor grayColor];
+    _footerLabel.textAlignment  = NSTextAlignmentCenter;
+    self.mainTableView.tableFooterView = _footerLabel;
+    
+    [self.view addSubview:self.mainTableView];
 }
 
 -(void) initBarItem{
     UIBarButtonItem *rightNew = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_new_normal"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
     
-    UIBarButtonItem *rightCalendar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_calendar"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
+    UIBarButtonItem *rightCalendar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_calendar"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectCanendarAction:)];
     NSArray *arr = [[NSArray alloc]initWithObjects:rightCalendar, rightNew,nil];
     self.navigationItem.rightBarButtonItems = arr;
     //设置导航栏的背景
@@ -134,11 +103,12 @@ static NSString* const cellID = @"cellID";
 -(NSString *) getMonthAndDay: (NSString*)timeStr :(NSInteger)type{
 
     NSString * time =@"";
-    // 日期格式化类
-    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    // 设置日期格式(为了转换成功)
-    fmt.dateFormat = @"yyyy-MM-dd";
-    NSDate *date = [fmt dateFromString:timeStr];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //输入格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
+    [dateFormatter setTimeZone:localTimeZone];
+    NSDate *date = [dateFormatter dateFromString:timeStr];
     NSCalendar *caldendar = [NSCalendar currentCalendar];// 获取日历
     if (date !=nil) {
         NSInteger month = [caldendar component:NSCalendarUnitMonth fromDate:date];
@@ -233,72 +203,61 @@ static NSString* const cellID = @"cellID";
 }
 
 //加载数据
--(void) getNetworkData:(BOOL)isRefresh{
+-(void) getNetworkData:(BOOL)isRefresh getDay:(NSString*) todayDate{
     //设置url
     
     NSString * baseUrl = @"http://gank.io/api/day/";
-    NSString * urlStr = [NSString stringWithFormat:@"%@%@", baseUrl,[self getDateToday]];
+    NSString * urlStr = [NSString stringWithFormat:@"%@%@", baseUrl,todayDate];
     //NSString * urlStr = @"http://gank.io/api/day/2018/5/22";
     NSLog(@"我的URL:%@",urlStr);
-    //网络请求
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:urlStr parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        NSLog(@"这里可以在加载进度条中设置当前进度");
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"成功数据=%@",responseObject);
+    __weak typeof(self) WeakSelf = self;
+    [super GetRequsetDataUrlString:urlStr Parameters:nil];
+    self.GetSuccess = ^(id responseObject) {
         //数据获取成功之后就跟新缓存
         NSData *mData= [NSJSONSerialization dataWithJSONObject:(NSDictionary *)responseObject options:NSJSONWritingPrettyPrinted error:nil];
+
         //成功获取数据之后停止刷新和加载
-        [self endRefresh];
+        [WeakSelf hideTextDialog];
         HomeVO *homeData = [HomeBase mj_objectWithKeyValues:responseObject].results;
-        self.categoryArray = [HomeBase mj_objectWithKeyValues:responseObject].category;
+        WeakSelf.categoryArray = [HomeBase mj_objectWithKeyValues:responseObject].category;
         
         if (self.categoryArray != nil && self.categoryArray.count >0) {
             //判断是否已经缓存过该数据，如果缓存过就不做任何操作如果没有则设置新缓存数据
             BOOL isDef = false;
-            NSData *dataCache = [self readLocalCacheDataWithKey:baseUrl];
-            NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:dataCache options:NSJSONReadingMutableLeaves error:nil];
-            HomeVO *homeCache = [HomeBase mj_objectWithKeyValues:jsonObject].results;
-            if (homeCache != nil) {
-                NSLog(@"开始*************");
-                isDef = [homeData.Android isEqual: homeCache.Android];
-            }
-
-            if (!isDef) {
-                [self writeLocalCacheData:mData withKey:baseUrl];
-                NSLog(@"结束*************");
+            //读取缓存
+            NSData *dataCache = [WeakSelf readLocalCacheDataWithKey:baseUrl];
+            if (dataCache !=nil) {
+                NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:dataCache options:NSJSONReadingMutableContainers error:nil];
+                HomeVO *homeCache = [HomeBase mj_objectWithKeyValues:jsonObject].results;
+                if (homeCache != nil) {
+                    NSLog(@"开始*************");
+                    isDef = [homeData.Android isEqual: homeCache.Android];
+                }
+                
+                if (!isDef) {
+                    [WeakSelf writeLocalCacheData:mData withKey:baseUrl];
+                    NSLog(@"结束*************");
+                }
+            }else{
+                [WeakSelf writeLocalCacheData:mData withKey:baseUrl];
             }
             //设置最新请求数据
-            [self setDataToView:homeData];
+            [WeakSelf setDataToView:homeData];
         }else{
-            NSData *data = [self readLocalCacheDataWithKey:baseUrl];
+            NSData *data = [WeakSelf readLocalCacheDataWithKey:baseUrl];
             NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             NSLog(@"缓存数据=%@",jsonObject);
             HomeVO *homeData = [HomeBase mj_objectWithKeyValues:jsonObject].results;
-            self.categoryArray = [HomeBase mj_objectWithKeyValues:jsonObject].category;
+            WeakSelf.categoryArray = [HomeBase mj_objectWithKeyValues:jsonObject].category;
             //设置缓存数据
-            [self setDataToView:homeData];
+            [WeakSelf setDataToView:homeData];
         }
-        _footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
+        
+        WeakSelf.footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
         //刷新数据
-        [_tableView reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        //NSLog(@"失败了=%@",error);
-        //[self.proHUD hideAnimated:YES];
-        [self.tableView.mj_header endRefreshing];
-    }];
+        [WeakSelf.mainTableView reloadData];
+    };
 }
-//停止刷新
-- (void) endRefresh{
-    [self.tableView.mj_header endRefreshing];
-    [self.proHUD hideAnimated:YES];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat sectionHeaderHeight = 50;
@@ -309,33 +268,22 @@ static NSString* const cellID = @"cellID";
     }
 }
 
-//显示进度条
--(void)showTextDialog:(NSString *)sender{
-    _proHUD = [[MBProgressHUD alloc] init];
-    [self.view addSubview:_proHUD];
-    _proHUD.bezelView.color = [UIColor blackColor];
-    _proHUD.bezelView.color = [_proHUD.bezelView.color colorWithAlphaComponent:1];
-    //3,设置背景框的圆角值，默认是10
-    _proHUD.bezelView.layer.cornerRadius = 10.0;
-    //6，设置菊花颜色  只能设置菊花的颜色
-    _proHUD.activityIndicatorColor = [UIColor whiteColor];
-    _proHUD.margin = 15;
-    _proHUD.label.text = sender;
-    _proHUD.label.textColor = [UIColor whiteColor];
-    //11，背景框的最小大小
-    _proHUD.minSize = CGSizeMake(100, 100);
-    //13,是否强制背景框宽高相等
-    _proHUD.square = YES;
-    //14,设置显示和隐藏动画类型  有三种动画效果，如下
-    _proHUD.animationType = MBProgressHUDAnimationZoomOut; //HUD的整个view后退 然后逐渐的后退
-    _proHUD.removeFromSuperViewOnHide = NO;
-    [_proHUD showAnimated:YES];
-}
+//导航栏刷新点击事件
 -(void)selectRightAction:(id)sender{
-//    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"你点击了导航栏右按钮" delegate:self  cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//    [alter show];
     [self showTextDialog:@"更新中..."];
-    [self getNetworkData:YES];
+    [self getNetworkData:YES getDay:[self getDateToday]];
+}
+//导航栏日历点击事件
+-(void)selectCanendarAction:(id)sender{
+    HistoryViewController *hConteroller = [HistoryViewController new];
+    // 将代理对象设置成SecondViewController
+    hConteroller.delegate = self;
+    [self.navigationController pushViewController:hConteroller animated:YES];
+}
+
+// 实现协议里面的方法(返回值回调)
+- (void)showViewGiveValue:(NSString *)text{
+    [self getNetworkData:YES getDay:text];
 }
 
 -(NSString *)getDateToday{
@@ -356,11 +304,17 @@ static NSString* const cellID = @"cellID";
         if ([self.categoryArray[j] isEqualToString:@"福利"]) {
             [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:0];
         }
+    }
+    
+    for (int j =0; j<self.categoryArray.count; j++) {
         //IOS 开发，所以IOS排第二
         if ([self.categoryArray[j] isEqualToString:@"iOS"]) {
             [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:1];
         }
-        //本人也是Android开发，所以android排第三
+    }
+    
+    for (int j =0; j<self.categoryArray.count; j++) {
+        //IOS 开发，所以IOS排第二
         if ([self.categoryArray[j] isEqualToString:@"Android"]) {
             [self.categoryArray exchangeObjectAtIndex:j withObjectAtIndex:2];
         }
@@ -385,8 +339,9 @@ static NSString* const cellID = @"cellID";
             [self.imag addObjectsFromArray:homeData.wetify];
             for (BookVO *b in homeData.wetify) {
                 [_imageView sd_setImageWithURL:[NSURL URLWithString:b.url] placeholderImage:[UIImage imageNamed:@"logo"]];
-                self.m.text = [self getMonthAndDay:b.desc :0];
-                self.d.text = [self getMonthAndDay:b.desc :1];
+                self.m.text = [self getMonthAndDay:b.publishedAt :0];
+                self.d.text = [self getMonthAndDay:b.publishedAt :1];
+
             }
         }
     }
@@ -416,55 +371,5 @@ static NSString* const cellID = @"cellID";
     [broser show];
 }
 
-// 写缓存
-- (void)writeLocalCacheData:(NSData *)data withKey:(NSString *)key {
-    // 设置存储路径
-    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0]
-                            stringByAppendingPathComponent:key];
-    NSLog(@"存储路径%@",cachesPath);
-    // 判读缓存数据是否存在
-    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {//存在
-        // 删除旧的缓存数据
-         NSLog(@"缓存数据存在");
-        [[NSFileManager defaultManager] removeItemAtPath:cachesPath error:nil];
-        //写入缓存数据
-        [data writeToFile:cachesPath atomically:YES];
-    }else{//不存在的情况下创建，返回值为是否创建成功
-        BOOL res=[[NSFileManager defaultManager] createDirectoryAtPath:cachesPath withIntermediateDirectories:YES attributes:nil error:nil];
-        if (res) {//创建成功之后写入缓存
-             NSLog(@"创建成功");
-            //写入缓存数据
-            [data writeToFile:cachesPath atomically:YES];
-        }
-    }
-     NSLog(@"缓存数据完成");
-    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
-        // 删除旧的缓存数据
-        NSLog(@"缓存成功");
-    }
-}
-
-// 读缓存
-- (NSData *)readLocalCacheDataWithKey:(NSString *)key {
-    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0]
-                            stringByAppendingPathComponent:key];
-    // 判读缓存数据是否存在
-    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
-        // 读取缓存数据
-        return [NSData dataWithContentsOfFile:cachesPath];
-    }
-    return nil;
-}
-
-// 删缓存
-- (void)deleteLocalCacheDataWithKey:(NSString *)key {
-    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0]
-                            stringByAppendingPathComponent:key];
-    // 判读缓存数据是否存在
-    if ([[NSFileManager defaultManager] fileExistsAtPath:cachesPath]) {
-        // 删除缓存数据
-        [[NSFileManager defaultManager] removeItemAtPath:cachesPath error:nil];
-    }
-}
 
 @end
