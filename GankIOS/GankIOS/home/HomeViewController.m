@@ -245,12 +245,15 @@ static NSString* const cellID = @"cellID";
             [WeakSelf setDataToView:homeData];
         }else{
             NSData *data = [WeakSelf readLocalCacheDataWithKey:baseUrl];
-            NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"缓存数据=%@",jsonObject);
-            HomeVO *homeData = [HomeBase mj_objectWithKeyValues:jsonObject].results;
-            WeakSelf.categoryArray = [HomeBase mj_objectWithKeyValues:jsonObject].category;
-            //设置缓存数据
-            [WeakSelf setDataToView:homeData];
+            if (data != nil) {
+                NSDictionary *jsonObject =[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+                NSLog(@"缓存数据=%@",jsonObject);
+                HomeVO *homeData = [HomeBase mj_objectWithKeyValues:jsonObject].results;
+                WeakSelf.categoryArray = [HomeBase mj_objectWithKeyValues:jsonObject].category;
+                //设置缓存数据
+                [WeakSelf setDataToView:homeData];
+            }
+            [WeakSelf showAllTextDialog:@"真的没有数据了"];
         }
         
         WeakSelf.footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
