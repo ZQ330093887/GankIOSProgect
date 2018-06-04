@@ -92,7 +92,6 @@ static NSString* const cellID = @"cellID";
     [self.navigationController pushViewController:webVC animated:YES];
     //item 按下抬起的时候返回正常背景
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
-    
 }
 
 //加载数据

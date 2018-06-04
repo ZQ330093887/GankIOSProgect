@@ -7,6 +7,7 @@
 //
 
 #import "SearchController.h"
+#import "WYWebController.h"
 #import "AFNetworking.h"
 #import "MJExtension.h"
 #import "BaseVO.h"
@@ -94,6 +95,23 @@ static NSString* const cellID = @"cellID";
     cell.book =book;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+/**
+ *点击事件
+ */
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //隐藏搜索框
+    [_searchBar resignFirstResponder];
+    [_searchBar removeFromSuperview];
+    //
+    NSUInteger rowNo = indexPath.row;
+    BookVO *book = (BookVO *)[self.bookArray objectAtIndex:rowNo];
+    WYWebController *webVC = [WYWebController new];
+    webVC.url = book.url;
+    [self.navigationController pushViewController:webVC animated:YES];
+    //item 按下抬起的时候返回正常背景
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
 #pragma -mark 点击取消按钮
