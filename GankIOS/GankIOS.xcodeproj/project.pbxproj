@@ -12,6 +12,7 @@
 		3708DBFD20AE6F6400991674 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3708DBFC20AE6F6400991674 /* UIView+Extension.m */; };
 		370A216820AD862A00973F48 /* CategoryWelfareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370A216720AD862A00973F48 /* CategoryWelfareViewController.m */; };
 		370A216B20AD8D6600973F48 /* WelfareCollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 370A216A20AD8D6600973F48 /* WelfareCollViewCell.m */; };
+		370A9C3720C4E2FC0050F43D /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370A9C3620C4E2FC0050F43D /* SearchController.m */; };
 		372D429820A3E6B50022875A /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372D429720A3E6B50022875A /* MineViewController.m */; };
 		372D429C20A443910022875A /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372D429B20A443910022875A /* AboutViewController.m */; };
 		3770F50320AC2474007EAA06 /* CaneryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3770F50220AC2474007EAA06 /* CaneryCell.m */; };
@@ -52,6 +53,8 @@
 		370A216720AD862A00973F48 /* CategoryWelfareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryWelfareViewController.m; sourceTree = "<group>"; };
 		370A216920AD8D6600973F48 /* WelfareCollViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WelfareCollViewCell.h; sourceTree = "<group>"; };
 		370A216A20AD8D6600973F48 /* WelfareCollViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WelfareCollViewCell.m; sourceTree = "<group>"; };
+		370A9C3520C4E2FC0050F43D /* SearchController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
+		370A9C3620C4E2FC0050F43D /* SearchController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		372D429620A3E6B50022875A /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		372D429720A3E6B50022875A /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		372D429A20A443910022875A /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -135,6 +138,15 @@
 				3708DBFC20AE6F6400991674 /* UIView+Extension.m */,
 			);
 			path = "UIView+extention";
+			sourceTree = "<group>";
+		};
+		370A9C3420C4E2E70050F43D /* search */ = {
+			isa = PBXGroup;
+			children = (
+				370A9C3520C4E2FC0050F43D /* SearchController.h */,
+				370A9C3620C4E2FC0050F43D /* SearchController.m */,
+			);
+			path = search;
 			sourceTree = "<group>";
 		};
 		372D429520A3E6990022875A /* mine */ = {
@@ -225,6 +237,7 @@
 		3771688020A31CA9001DD2D5 /* category */ = {
 			isa = PBXGroup;
 			children = (
+				370A9C3420C4E2E70050F43D /* search */,
 				3771688120A31CBE001DD2D5 /* CategoryViewController.h */,
 				3771688220A31CBE001DD2D5 /* CategoryViewController.m */,
 				37F6A26D20A9DD360061FD50 /* CategoryListViewController.h */,
@@ -464,6 +477,7 @@
 				37FB0B8820A6CB3600A2530F /* LoginViewController.m in Sources */,
 				3771687620A31AFD001DD2D5 /* main.m in Sources */,
 				37F6A27620A9ED3F0061FD50 /* BookVO.m in Sources */,
+				370A9C3720C4E2FC0050F43D /* SearchController.m in Sources */,
 				3771686820A31AFD001DD2D5 /* AppDelegate.m in Sources */,
 				3770F50320AC2474007EAA06 /* CaneryCell.m in Sources */,
 				37F6A27320A9ECC30061FD50 /* BaseVO.m in Sources */,

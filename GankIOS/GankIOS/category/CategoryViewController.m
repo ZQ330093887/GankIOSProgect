@@ -9,6 +9,7 @@
 #import "CategoryViewController.h"
 #import "CategoryListViewController.h"
 #import "CategoryWelfareViewController.h"
+#import "SearchController.h"
 
 // 宽度(自定义)
 #define PIC_WIDTH 120
@@ -131,7 +132,8 @@ NSArray<NSString *> *pictures;
     }
 }
 -(void)selectRightAction:(id)sender{
-    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"搜索正在开发中" delegate:self  cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-    [alter show];
+    SearchController * searchCtr = [[SearchController alloc]init];
+    searchCtr.mTitle = @"搜索";
+    [self.navigationController pushViewController:searchCtr animated:YES];
 }
 @end

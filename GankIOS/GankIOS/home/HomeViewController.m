@@ -281,6 +281,7 @@ static NSString* const cellID = @"cellID";
     HistoryViewController *hConteroller = [HistoryViewController new];
     // 将代理对象设置成SecondViewController
     hConteroller.delegate = self;
+    hConteroller.mTitle = @"历史的车轮";
     [self.navigationController pushViewController:hConteroller animated:YES];
 }
 

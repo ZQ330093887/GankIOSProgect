@@ -11,7 +11,7 @@ target 'GankIOS' do
     pod 'SDCycleScrollView'
     pod 'DACircularProgress'
     pod 'UITableView+FDTemplateLayoutCell'
-    pod'UICollectionView-ARDynamicHeightLayoutCell'
+    pod 'UICollectionView-ARDynamicHeightLayoutCell'
     pod 'FSCalendar'
 
 end
