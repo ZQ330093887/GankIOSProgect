@@ -19,6 +19,7 @@
 #define kHight  [UIScreen mainScreen].bounds.size.height
 static NSString* const cellID = @"cellID";
 @interface SearchController()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+
 @property (nonatomic,strong) NSMutableArray  * bookArray;//数据存储
 @property (nonatomic,strong) UISearchBar     * searchBar;
 @property (nonatomic,strong) UIImageView     * imgView;//默认背景

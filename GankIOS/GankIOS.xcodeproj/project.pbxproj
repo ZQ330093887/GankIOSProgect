@@ -15,6 +15,9 @@
 		370A9C3720C4E2FC0050F43D /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 370A9C3620C4E2FC0050F43D /* SearchController.m */; };
 		372D429820A3E6B50022875A /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372D429720A3E6B50022875A /* MineViewController.m */; };
 		372D429C20A443910022875A /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372D429B20A443910022875A /* AboutViewController.m */; };
+		374C07B920D9EB2000B3661A /* ShareMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 374C07B820D9EB2000B3661A /* ShareMenuView.m */; };
+		374C07C220DA099F00B3661A /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 374C07C120DA099F00B3661A /* UIColor+Hex.m */; };
+		3762731E20CE6854001EAFB6 /* PushGankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3762731D20CE6854001EAFB6 /* PushGankViewController.m */; };
 		3770F50320AC2474007EAA06 /* CaneryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3770F50220AC2474007EAA06 /* CaneryCell.m */; };
 		3771686820A31AFD001DD2D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771686720A31AFD001DD2D5 /* AppDelegate.m */; };
 		3771686B20A31AFD001DD2D5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771686A20A31AFD001DD2D5 /* ViewController.m */; };
@@ -31,6 +34,10 @@
 		37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3320B5CB6100E3F025 /* WYWebController.m */; };
 		37A8BCDD20BC53FA0032B253 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */; };
 		37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1486B20BD2427002B8A65 /* BaseViewController.m */; };
+		37C1E9DF20D260BD006C0E0A /* BuildUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9DE20D260BD006C0E0A /* BuildUpdateViewController.m */; };
+		37C1E9E220D268D3006C0E0A /* BuildUpdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9E120D268D3006C0E0A /* BuildUpdateCell.m */; };
+		37C1E9E520D26A46006C0E0A /* BuildInfoVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9E420D26A46006C0E0A /* BuildInfoVO.m */; };
+		37C1E9E720D270F6006C0E0A /* updateBuild.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37C1E9E620D270F6006C0E0A /* updateBuild.plist */; };
 		37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD7E20AFE4E400BD987B /* HomeCell.m */; };
 		37D1CD8220AFE53C00BD987B /* HomeVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8120AFE53C00BD987B /* HomeVO.m */; };
 		37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8420AFEC4B00BD987B /* HomeBase.m */; };
@@ -59,6 +66,13 @@
 		372D429720A3E6B50022875A /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		372D429A20A443910022875A /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		372D429B20A443910022875A /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		374C07B720D9EB2000B3661A /* ShareMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareMenuView.h; sourceTree = "<group>"; };
+		374C07B820D9EB2000B3661A /* ShareMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareMenuView.m; sourceTree = "<group>"; };
+		374C07C020DA099F00B3661A /* UIColor+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		374C07C120DA099F00B3661A /* UIColor+Hex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		374C07C520DA3E7200B3661A /* GankPCH.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GankPCH.pch; sourceTree = "<group>"; };
+		3762731C20CE6854001EAFB6 /* PushGankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushGankViewController.h; sourceTree = "<group>"; };
+		3762731D20CE6854001EAFB6 /* PushGankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushGankViewController.m; sourceTree = "<group>"; };
 		3770F50120AC2474007EAA06 /* CaneryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaneryCell.h; sourceTree = "<group>"; };
 		3770F50220AC2474007EAA06 /* CaneryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaneryCell.m; sourceTree = "<group>"; };
 		3771686320A31AFD001DD2D5 /* GankIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GankIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +103,13 @@
 		37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		37C1486A20BD2427002B8A65 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		37C1486B20BD2427002B8A65 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		37C1E9DD20D260BD006C0E0A /* BuildUpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuildUpdateViewController.h; sourceTree = "<group>"; };
+		37C1E9DE20D260BD006C0E0A /* BuildUpdateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuildUpdateViewController.m; sourceTree = "<group>"; };
+		37C1E9E020D268D2006C0E0A /* BuildUpdateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuildUpdateCell.h; sourceTree = "<group>"; };
+		37C1E9E120D268D3006C0E0A /* BuildUpdateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuildUpdateCell.m; sourceTree = "<group>"; };
+		37C1E9E320D26A46006C0E0A /* BuildInfoVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuildInfoVO.h; sourceTree = "<group>"; };
+		37C1E9E420D26A46006C0E0A /* BuildInfoVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuildInfoVO.m; sourceTree = "<group>"; };
+		37C1E9E620D270F6006C0E0A /* updateBuild.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = updateBuild.plist; sourceTree = "<group>"; };
 		37D1CD7D20AFE4E400BD987B /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		37D1CD7E20AFE4E400BD987B /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		37D1CD8020AFE53C00BD987B /* HomeVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVO.h; sourceTree = "<group>"; };
@@ -152,6 +173,9 @@
 		372D429520A3E6990022875A /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				374C07B620D9EB0900B3661A /* share */,
+				37C1E9DC20D26095006C0E0A /* updatebuild */,
+				3762731B20CE6840001EAFB6 /* push */,
 				37FB0B8520A6CB2A00A2530F /* login */,
 				372D429920A443810022875A /* about */,
 				372D429620A3E6B50022875A /* MineViewController.h */,
@@ -169,6 +193,41 @@
 			path = about;
 			sourceTree = "<group>";
 		};
+		374C07B620D9EB0900B3661A /* share */ = {
+			isa = PBXGroup;
+			children = (
+				374C07B720D9EB2000B3661A /* ShareMenuView.h */,
+				374C07B820D9EB2000B3661A /* ShareMenuView.m */,
+			);
+			path = share;
+			sourceTree = "<group>";
+		};
+		374C07BA20DA01F900B3661A /* common */ = {
+			isa = PBXGroup;
+			children = (
+				374C07BB20DA020D00B3661A /* src */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		374C07BB20DA020D00B3661A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				374C07C020DA099F00B3661A /* UIColor+Hex.h */,
+				374C07C120DA099F00B3661A /* UIColor+Hex.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		3762731B20CE6840001EAFB6 /* push */ = {
+			isa = PBXGroup;
+			children = (
+				3762731C20CE6854001EAFB6 /* PushGankViewController.h */,
+				3762731D20CE6854001EAFB6 /* PushGankViewController.m */,
+			);
+			path = push;
+			sourceTree = "<group>";
+		};
 		3770F50420AC24E3007EAA06 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +237,8 @@
 				370A216A20AD8D6600973F48 /* WelfareCollViewCell.m */,
 				37D1CD7D20AFE4E400BD987B /* HomeCell.h */,
 				37D1CD7E20AFE4E400BD987B /* HomeCell.m */,
+				37C1E9E020D268D2006C0E0A /* BuildUpdateCell.h */,
+				37C1E9E120D268D3006C0E0A /* BuildUpdateCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -203,6 +264,7 @@
 		3771686520A31AFD001DD2D5 /* GankIOS */ = {
 			isa = PBXGroup;
 			children = (
+				374C07BA20DA01F900B3661A /* common */,
 				37C1486920BD23FA002B8A65 /* base */,
 				37E8DC7320B5BE3A00185B3D /* webview */,
 				3708DBF320AE6DE500991674 /* widget */,
@@ -220,6 +282,7 @@
 				3771688920A325FA001DD2D5 /* Assets.xcassets */,
 				3771687420A31AFD001DD2D5 /* Info.plist */,
 				3771687520A31AFD001DD2D5 /* main.m */,
+				374C07C520DA3E7200B3661A /* GankPCH.pch */,
 			);
 			path = GankIOS;
 			sourceTree = "<group>";
@@ -266,6 +329,16 @@
 			path = base;
 			sourceTree = "<group>";
 		};
+		37C1E9DC20D26095006C0E0A /* updatebuild */ = {
+			isa = PBXGroup;
+			children = (
+				37C1E9DD20D260BD006C0E0A /* BuildUpdateViewController.h */,
+				37C1E9DE20D260BD006C0E0A /* BuildUpdateViewController.m */,
+				37C1E9E620D270F6006C0E0A /* updateBuild.plist */,
+			);
+			path = updatebuild;
+			sourceTree = "<group>";
+		};
 		37E8DC7320B5BE3A00185B3D /* webview */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +367,8 @@
 				37D1CD8120AFE53C00BD987B /* HomeVO.m */,
 				37D1CD8320AFEC4B00BD987B /* HomeBase.h */,
 				37D1CD8420AFEC4B00BD987B /* HomeBase.m */,
+				37C1E9E320D26A46006C0E0A /* BuildInfoVO.h */,
+				37C1E9E420D26A46006C0E0A /* BuildInfoVO.m */,
 			);
 			path = vo;
 			sourceTree = "<group>";
@@ -387,6 +462,7 @@
 			files = (
 				3771687320A31AFD001DD2D5 /* LaunchScreen.storyboard in Resources */,
 				3771688A20A325FA001DD2D5 /* Assets.xcassets in Resources */,
+				37C1E9E720D270F6006C0E0A /* updateBuild.plist in Resources */,
 				3771686E20A31AFD001DD2D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37FB0B8820A6CB3600A2530F /* LoginViewController.m in Sources */,
+				374C07C220DA099F00B3661A /* UIColor+Hex.m in Sources */,
 				3771687620A31AFD001DD2D5 /* main.m in Sources */,
 				37F6A27620A9ED3F0061FD50 /* BookVO.m in Sources */,
 				370A9C3720C4E2FC0050F43D /* SearchController.m in Sources */,
@@ -483,9 +560,12 @@
 				37F6A27320A9ECC30061FD50 /* BaseVO.m in Sources */,
 				3708DBF820AE6E1B00991674 /* STPhotoBroswer.m in Sources */,
 				37808A3920B5CB6200E3F025 /* UIView+Frame.m in Sources */,
+				37C1E9E520D26A46006C0E0A /* BuildInfoVO.m in Sources */,
+				37C1E9E220D268D3006C0E0A /* BuildUpdateCell.m in Sources */,
 				370A216820AD862A00973F48 /* CategoryWelfareViewController.m in Sources */,
 				3771687F20A31C20001DD2D5 /* HomeViewController.m in Sources */,
 				3708DBFD20AE6F6400991674 /* UIView+Extension.m in Sources */,
+				37C1E9DF20D260BD006C0E0A /* BuildUpdateViewController.m in Sources */,
 				37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */,
 				372D429C20A443910022875A /* AboutViewController.m in Sources */,
 				370A216B20AD8D6600973F48 /* WelfareCollViewCell.m in Sources */,
@@ -493,12 +573,14 @@
 				37808A3820B5CB6200E3F025 /* NSTimer+addition.m in Sources */,
 				37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */,
 				3708DBF920AE6E1B00991674 /* STImageVIew.m in Sources */,
+				3762731E20CE6854001EAFB6 /* PushGankViewController.m in Sources */,
 				372D429820A3E6B50022875A /* MineViewController.m in Sources */,
 				37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */,
 				37A8BCDD20BC53FA0032B253 /* HistoryViewController.m in Sources */,
 				37808A3620B5CB6200E3F025 /* WYWebProgressLayer.m in Sources */,
 				3771688320A31CBE001DD2D5 /* CategoryViewController.m in Sources */,
 				37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */,
+				374C07B920D9EB2000B3661A /* ShareMenuView.m in Sources */,
 				37F6A26F20A9DD360061FD50 /* CategoryListViewController.m in Sources */,
 				37808A3720B5CB6200E3F025 /* WLWebProgressLayer.m in Sources */,
 				3771686B20A31AFD001DD2D5 /* ViewController.m in Sources */,
@@ -638,6 +720,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27C5CS3BY;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/GankIOS/GankPCH.pch";
 				INFOPLIST_FILE = GankIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "---.GankIOS";
@@ -653,6 +737,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F27C5CS3BY;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/GankIOS/GankPCH.pch";
 				INFOPLIST_FILE = GankIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "---.GankIOS";

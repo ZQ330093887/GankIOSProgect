@@ -8,11 +8,13 @@
 
 #import "BaseVO.h"
 #import "MJExtension.h"
+#import "BuildInfoVO.h"
 
 @implementation BaseVO
 +(NSDictionary *)mj_objectClassInArray{
     return @{
-             @"results" : @"BookVO"
+              @"results" : @"BookVO",
+              @"updateInfo" : @"BuildInfoVO"
              };
 }
 @end

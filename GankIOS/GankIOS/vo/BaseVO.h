@@ -12,4 +12,5 @@
 @property (assign, nonatomic) unsigned int count;
 @property (assign, nonatomic) unsigned int error;
 @property (strong, nonatomic) NSMutableArray *results;
+@property (strong, nonatomic) NSMutableArray *updateInfo;
 @end

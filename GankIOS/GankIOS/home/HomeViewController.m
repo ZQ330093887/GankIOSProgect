@@ -55,7 +55,7 @@ static NSString* const cellID = @"cellID";
     self.mainTableView.dataSource = self;
     [self.mainTableView registerClass:[HomeCell class] forCellReuseIdentifier:cellID];
     //头部view
-    UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 520)];
+    UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 520)];
     //头部福利图片view
     _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerLable.frame.size.width, headerLable.frame.size.height)];
     //允许操作
@@ -64,7 +64,7 @@ static NSString* const cellID = @"cellID";
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     [_imageView addGestureRecognizer:singleTap];
     //头部日期
-    UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-95, 520-40, 74, 74)];
+    UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-95, 520-40, 74, 74)];
     dataView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"date_bg"]];
     
     _d = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 74, 30)];
@@ -79,7 +79,7 @@ static NSString* const cellID = @"cellID";
     self.mainTableView.tableHeaderView = headerLable;
     
     //创建一个脚Label
-    _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    _footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     _footerLabel.font =  [UIFont systemFontOfSize:12];
     _footerLabel.textColor= [UIColor grayColor];
     _footerLabel.textAlignment  = NSTextAlignmentCenter;
@@ -180,7 +180,7 @@ static NSString* const cellID = @"cellID";
     }
     
     footerLabel.font =  [UIFont systemFontOfSize:22];
-    footerLabel.textColor= [UIColor colorWithRed:212/255.0 green:158/255.0 blue:57/255.0 alpha:1];
+    footerLabel.textColor= TintColor;
     footerLabel.textAlignment  = NSTextAlignmentCenter;
     return footerLabel;
 }

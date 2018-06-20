@@ -1,0 +1,55 @@
+//
+//  GankPCH.pch
+//  GankIOS
+//
+//  Created by 周琼 on 2018/6/20.
+//  Copyright © 2018年 周琼. All rights reserved.
+//
+
+#ifndef GankPCH_pch
+#define GankPCH_pch
+#import "UIColor+Hex.h"
+
+
+// 屏幕高度
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+// 屏幕宽度
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+
+
+
+
+
+/********************************字体大小******************************************/
+#define HugeFont                            [UIFont systemFontOfSize:20]
+#define TopFont                             [UIFont systemFontOfSize:18]
+#define TopBoldFont                         [UIFont boldSystemFontOfSize:18]
+#define HeaderFont                          [UIFont systemFontOfSize:17]
+#define Font_14                          [UIFont systemFontOfSize:14]
+#define SelectBoldFont                      [UIFont boldSystemFontOfSize:14]
+#define TitleFont                           [UIFont systemFontOfSize:16]
+#define TitleBoldFont                       [UIFont boldSystemFontOfSize:16]
+#define SubTitleFont                        [UIFont systemFontOfSize:13]
+#define SubTitleBoldFont                    [UIFont boldSystemFontOfSize:13]
+#define DetailFont                          [UIFont systemFontOfSize:12]
+#define SubDetailFont                       [UIFont systemFontOfSize:11]
+#define ExplainFont                         [UIFont systemFontOfSize:10]
+#define SelectTitleFont                     [UIFont systemFontOfSize:15]
+
+
+
+/********************************颜色******************************************/
+#define TintColor                           [UIColor colorWithRed:212/255.f green:158/255.f blue:57/255.f alpha:1.0f]
+#define TextColor                           [UIColor colorWithRed:53/255.f green:53/255.f blue:53/255.f alpha:1.0f]
+#define SubTextColor                        [UIColor colorWithRed:136/255.f green:136/255.f blue:136/255.f alpha:1.0f]
+#define FooterColor                         [UIColor colorWithRed:178/255.f green:178/255.f blue:178/255.f alpha:1.0f]
+#define LineColor                           [UIColor colorWithRed:240/255.f green:240/255.f blue:240/255.f alpha:1.0f]
+#define BackgroundColor                     [UIColor colorWithRed:230/255.f green:230/255.f blue:230/255.f alpha:1.0f]
+#define HitColor                            [UIColor colorWithHex:0xc8343d]
+#define AdTitleColor0                       [UIColor colorWithHex:0xfc3500]
+#define AdTitleColor1                       [UIColor colorWithHex:0xfc8800]
+#define AdTitleColor2                       [UIColor colorWithHex:0xfcca00]
+#define TimelineCommentPraiseColor          [UIColor colorWithHex:0x999999]
+#define LightRedColor                       [UIColor colorWithHex:0xf36179]
+#define PullDownColor                       [UIColor colorWithHex:0xff704f]
+#endif /* GankPCH_pch */

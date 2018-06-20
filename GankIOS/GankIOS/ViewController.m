@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     /*************设置公共属性*************/
     //设置公共背景颜色
-    self.view.backgroundColor = [UIColor colorWithRed: 230/255.0  green: 230/255.0 blue: 230/255.0 alpha: 1.0];
+    self.view.backgroundColor = BackgroundColor;
     [super viewDidLoad];
     [self initMainController];
     // Do any additional setup after loading the view, typically from a nib.
@@ -43,7 +43,7 @@
               titleSize:11.0
           titleFontName:@"HeiTi SC"
           selectedImage:@"ic_nav_new_normal"
-     selectedTitleColor:[UIColor colorWithRed:212/255.0 green:158/255.0 blue:57/255.0 alpha:1]
+     selectedTitleColor:TintColor
             normalImage:@"ic_nav_new"
        normalTitleColor:[UIColor grayColor]];
     
@@ -55,7 +55,7 @@
               titleSize:11.0
           titleFontName:@"HeiTi SC"
           selectedImage:@"ic_nav_category"
-     selectedTitleColor:[UIColor colorWithRed:212/255.0 green:158/255.0 blue:57/255.0 alpha:1]
+     selectedTitleColor:TintColor
             normalImage:@"ic_nav_category_normal"
        normalTitleColor:[UIColor grayColor]];
     //我的
@@ -67,7 +67,7 @@
               titleSize:11.0
           titleFontName:@"HeiTi SC"
           selectedImage:@"ic_nav_mine"
-     selectedTitleColor:[UIColor colorWithRed:212/255.0 green:158/255.0 blue:57/255.0 alpha:1]
+     selectedTitleColor:TintColor
             normalImage:@"ic_nav_mine_normal"
        normalTitleColor:[UIColor grayColor]];
     

@@ -27,8 +27,6 @@
 
 @end
 
-#define mainColor [UIColor colorWithRed:212/255.0 green:158/255.0 blue:57/255.0 alpha:1]
-
 @implementation HistoryViewController
 
 - (void)viewDidLoad {
@@ -51,7 +49,7 @@
     // For UITest
     self.calendar.accessibilityIdentifier = @"calendar";
     
-    UILabel *subLab = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width-80, 10, 100, 30)];
+    UILabel *subLab = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-80, 10, 100, 30)];
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:@"有干货"];
     NSTextAttachment *attch = [[NSTextAttachment alloc] init];
     attch.image = [UIImage imageNamed:@"has_gank"];
@@ -79,15 +77,15 @@
     calendar.allowsMultipleSelection = YES;
     [self.view addSubview:calendar];
     self.calendar = calendar;
-    calendar.appearance.weekdayTextColor = mainColor;
+    calendar.appearance.weekdayTextColor = TintColor;
     calendar.appearance.headerTitleFont  = [UIFont systemFontOfSize:23];
-    calendar.appearance.headerTitleColor = mainColor;
+    calendar.appearance.headerTitleColor = TintColor;
     calendar.appearance.headerDateFormat = @"yyyy MMMM";
     
     calendar.calendarWeekdayView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
     calendar.calendarHeaderView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.1];
     //设置选中数据的背景色
-    calendar.appearance.selectionColor = mainColor;
+    calendar.appearance.selectionColor = TintColor;
     calendar.appearance.eventOffset = CGPointMake(0, -7);
     calendar.today = nil; // Hide the today circle
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];//设置为中文

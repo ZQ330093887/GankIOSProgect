@@ -48,15 +48,17 @@
     _rightLable = [[UILabel alloc] init];
     //设置文字剧中
     _rightLable.textAlignment  = NSTextAlignmentCenter;
+    
     [self.contentView addSubview:_rightLable];
     
     [_rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.updateExisting = YES;
         make.left.top.right.equalTo(self.contentView);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-30);
-        
     }];
     
     [_rightLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.updateExisting = YES;
         make.top.equalTo(_rightImageView.mas_bottom).offset(5);
         make.left.right.equalTo(self.contentView);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-5);

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class HomeVO;
+@class BuildInfoVO;
 
 @interface HomeBase : NSObject
 @property (assign, nonatomic) unsigned int error;

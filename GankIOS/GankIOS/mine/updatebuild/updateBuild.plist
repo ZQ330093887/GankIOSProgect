@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>updateInfo</key>
+	<array>
+		<dict>
+			<key>versionInfo</key>
+			<string>完成搜索功能，优化代码，解决已知bug</string>
+			<key>versionCode</key>
+			<string>1.1.0</string>
+			<key>versionName</key>
+			<string>初级版本02</string>
+			<key>versionTime</key>
+			<string>2018年6月14</string>
+		</dict>
+		<dict>
+			<key>versionInfo</key>
+			<string>首页添加缓存，完成“历史的车轮”功能</string>
+			<key>versionCode</key>
+			<string>1.0.0</string>
+			<key>versionName</key>
+			<string>初级版本01</string>
+			<key>versionTime</key>
+			<string>2018年6月10</string>
+		</dict>
+	</array>
+</dict>
+</plist>
