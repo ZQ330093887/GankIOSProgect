@@ -9,11 +9,6 @@
 
 非官方版本的干货集中营 iOS App。
 
-## 功能
-
-- [x] ~~集成 [flow.ci](http://flow.ci/)~~，已替换成 [Travis CI](https://travis-ci.org)
-- [x] 每日提醒（[利用 Background Fetch + UNUserNotificationCenter 实现伪推送](http://yeziahehe.com/2017/07/19/Background_Fetch_and_UNUserNotificationCenter/)）
-- [x] GitHub 登录提交干货
 
 ## 项目安装
 
