@@ -14,7 +14,7 @@
 
 1、切换到Podfile文件所在目录，运行pod install
 
-2、运行Gank.xcworkspace
+2、运行GankIOS.xcworkspace
 
 3、Enjoy it！
 
