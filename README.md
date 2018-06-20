@@ -33,5 +33,5 @@
 ## 期待
 
 - 如果您在使用过程中发现BUG或者觉得有何不合适，欢迎 issues me!
-- 这个我是参照[yeziahehe](https://github.com/yeziahehe)大神的UI开发的，他的项目语言Swift，我用object-c，开发该项目纯粹为了学习iOS技术，不做其他用途，再次感谢yeziahehe大神，大神的项目写的特别棒，欢迎大家start
+- 该项目参照[yeziahehe](https://github.com/yeziahehe)大神[Gank](https://github.com/yeziahehe/Gank)项目UI开发的，他的项目语言Swift，我用object-c，开发该项目纯粹为了学习iOS技术，不做其他用途，再次感谢yeziahehe大神，大神的项目写的特别棒，欢迎大家start
 - [简书](https://www.jianshu.com/u/9681f3bbb8c2)
