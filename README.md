@@ -1,154 +1,80 @@
-# Gank API 文档
+# Gank
 
-根据 [@代码家](https://github.com/daimajia) [API 文档](http://gank.io/api)以及本项目 Gank 模块进行整理，感谢他为开源做出的贡献。
+<p align="center">
+<a href=""><img src="Gank/Assets.xcassets/AppIcon.appiconset/Icon-60@3x.png"></a>
+</p>
 
-# 今日
+<p align="center">
+<a href="#前言">前言</a> -
+<a href="#功能">功能</a> -
+<a href="#运行环境">运行环境</a> -
+<a href="#API">API</a> -
+<a href="#版本">版本</a> -
+<a href="#贡献">贡献</a> -
+<a href="#致谢">致谢</a> -
+<a href="#关于我">关于我</a> -
+<a href="#开源协议">开源协议</a>
+</p>
 
-## #1 历史干货日期
+<p align="center">
+<a href="http://swift.org"><img src="https://img.shields.io/badge/language-swift%204.0-orange.svg"></a>
+<a href="https://developer.apple.com/xcode/"><img src="https://img.shields.io/badge/xcode-9.0-46aae6.svg"></a>
+<a href="https://developer.apple.com/ios"><img src="https://img.shields.io/badge/platform-iOS%2010+-lightgray.svg"></a>
+<a href="https://github.com/yeziahehe/Gank/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GPL%203.0-blue.svg"></a>
+<a href="https://github.com/yeziahehe/Gank/releases"><img src="https://img.shields.io/badge/release-1.0.1-brightgreen.svg"></a>
+<a href=""><img src="https://img.shields.io/badge/version-sona-red.svg"></a>
+<a href="https://travis-ci.org/yeziahehe/Gank"><img src="https://travis-ci.org/yeziahehe/Gank.svg"></a>
+<a href="https://codecov.io/gh/yeziahehe/Gank"><img src="https://codecov.io/gh/yeziahehe/Gank/branch/master/graph/badge.svg"></a>
+<a href="https://codebeat.co/projects/github-com-yeziahehe-gank"><img alt="codebeat badge" src="https://codebeat.co/badges/109fa6e9-5814-4f3c-a49b-dd0788ebf84b" /></a>
+</p>
 
-### 接口说明
+## 前言
 
-- 用于历史干货日期查询；
-- 用于判断今日是否有干货；
+| ![1](http://7xkvt5.com1.z0.glb.clouddn.com/gank/Guide1.png) | ![2](http://7xkvt5.com1.z0.glb.clouddn.com/gank/Guide2.png) | ![3](http://7xkvt5.com1.z0.glb.clouddn.com/gank/Guide3.png) | ![4](http://7xkvt5.com1.z0.glb.clouddn.com/gank/Guide4.png) | ![5](http://7xkvt5.com1.z0.glb.clouddn.com/gank/Guide5.png) |
+| :--: | :--: | :--: | :--: | :--: |
+| 每日干货 | 历史干货 | 分类搜索 | 个人中心 | 提交干货 |
 
-### 请求方式
+非官方版本的干货集中营 iOS App。
 
-| 请求方式 | URL |
-| :---: | --- |
-| `GET` | `http://gank.io/api/day/history` |
+## 功能
 
-### 返回示例
+- [x] ~~集成 [flow.ci](http://flow.ci/)~~，已替换成 [Travis CI](https://travis-ci.org)
+- [x] 每日提醒（[利用 Background Fetch + UNUserNotificationCenter 实现伪推送](http://yeziahehe.com/2017/07/19/Background_Fetch_and_UNUserNotificationCenter/)）
+- [x] GitHub 登录提交干货
 
-```
-{
-  error: false,
-  results: [
-    "2016-11-03",
-    "2016-11-02",
-    "2016-11-01",
-    "2016-10-31",
-    "2016-10-28",
-    "2016-10-27",
-    "2016-10-26"
-  ]
-}
-```
+## 开源组件
 
-| 返回参数 | 类型 | 描述 |
-| :---: | :---:| --- |
-| error | Bool | 错误类型：true \| false |
-| results | Array[String] | 历史干货日期 |
+在开发干货集中营的时候，对应开源了一些组件，欢迎 Star！
 
-## #2 某日干货
+- [YFMoreViewController](https://github.com/yeziahehe/YFMoreViewController)
 
-### 接口说明
+## 运行环境
 
-- 获取某日干货数据；
-- 判断今日是否有干货，可以用来获取最新一日干货；
+- iOS 10.0+
+- Xcode 9.0+
+- Swift 4.0
 
-### 请求方式
+## 文档
 
-| 请求方式 | URL |
-| :---: | --- |
-| `GET` | `http://gank.io/api/day/{year}/{month}/{day}` |
+- 详情请查看 [版本日志](https://github.com/yeziahehe/Gank/blob/master/RELEASES.md)
+- 个人整理的 [Git Commit Message 规范文档](https://github.com/yeziahehe/Gank/blob/master/COMMIT_zh_CN.md)
 
-### 返回示例
+## 贡献
 
-```
-{
-  category: [
-    "Android",
-    "休息视频",
-    "福利",
-    "iOS"
-  ],
-  error: false,
-  results: {
-    Android: [
-      {
-        _id: "5816e3e0421aa90e6f21b489",
-        createdAt: "2016-10-31T14:25:36.974Z",
-        desc: "dex文件结构解析以及其应用",
-        publishedAt: "2016-11-03T11:48:43.342Z",
-        source: "web",
-        type: "Android",
-        url: "http://www.zjutkz.net/2016/10/27/dex%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/",
-        used: true,
-        who: null
-      },
-      {
-        _id: "581aa212421aa91376974619",
-        createdAt: "2016-11-03T10:33:54.162Z",
-        desc: "Android 方块儿展开菜单，很有新意。",
-        images: [
-          "http://img.gank.io/c265503d-4cdb-4f1b-8998-008b20e01f9c"
-        ],
-        publishedAt: "2016-11-03T11:48:43.342Z",
-        source: "chrome",
-        type: "Android",
-        url: "https://github.com/devsideal/SquareMenu",
-        used: true,
-        who: "代码家"
-      }
-    ],
-    iOS: [
-      {
-        _id: "581aa2f2421aa9137697461a",
-        createdAt: "2016-11-03T10:37:38.607Z",
-        desc: "Swift Web Framework",
-        images: [
-          "http://img.gank.io/6defa0a8-aacd-4606-8a7a-a5bbda15b719"
-        ],
-        publishedAt: "2016-11-03T11:48:43.342Z",
-        source: "chrome",
-        type: "iOS",
-        url: "https://github.com/vapor/vapor",
-        used: true,
-        who: "代码家"
-      }
-    ],
-    休息视频: [
-      {
-        _id: "581967f1421aa9137697460a",
-        createdAt: "2016-11-02T12:13:37.604Z",
-        desc: "卷福来到上海，我们和他聊了聊",
-        publishedAt: "2016-11-03T11:48:43.342Z",
-        source: "chrome",
-        type: "休息视频",
-        url: "http://v.qq.com/x/page/r0342q3inxz.html",
-        used: true,
-        who: "lxxself"
-      }
-    ],
-    福利: [
-      {
-        _id: "581a838a421aa90e799ec261",
-        createdAt: "2016-11-03T08:23:38.560Z",
-        desc: "11-3",
-        publishedAt: "2016-11-03T11:48:43.342Z",
-        source: "chrome",
-        type: "福利",
-        url:"http://ww3.sinaimg.cn/large/610dc034jw1f9em0sj3yvj20u00w4acj.jpg",
-        used: true,
-        who: "daimajia"
-      }
-    ]
-  }
-}
-```
+- 感谢你愿意为 Gank 尽到你的一份力，你的创意能够帮助项目变得更好
+- 提交 PR 是参与到项目中最好的方式，我会用最快的速度回复你
+- 如果发现 Bug 或者问题，可以提交 Issue
+- 如果你对项目有兴趣，可以参照 [Projects](https://github.com/yeziahehe/Gank/projects/2)，和我一起开发接下来的版本
 
-| 返回参数 | 类型 | 描述 |
-| :---: | :---:| --- |
-| category | Array[String] | 干货类型：Android \| iOS \| 休息视频 \| 福利 \| 拓展资源 \| 前端 \| 瞎推荐 \| App	|
-| error | Bool | 错误类型：true \| false |
-| results | JSON Object | 干货详情 |
-| _id | String | 干货 id |
-| createdAt | String | 干货创建时间 |
-| desc | String | 描述 |
-| images | String | 配图 url，**可能存在无数据的情况** |
-| publishedAt | String | 干货发布时间 |
-| source | String | 不详 |
-| type | String | 干货类型 |
-| url | String | 干货链接 |
-| used | Bool | 干货有效类型 |
-| who | String | 作者 |
+## 致谢
+
+- [@代码家](https://github.com/daimajia)
+- [干货集中营](http://gank.io/)
+
+## 关于我
+
+- [yeziahehe](https://github.com/yeziahehe)
+- [Blog](http://yeziahehe.com/)
+
+## 开源协议
+[GNU General Public Licence (GPL)](https://github.com/yeziahehe/Gank/blob/master/LICENSE)
