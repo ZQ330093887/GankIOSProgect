@@ -7,6 +7,7 @@
 //
 
 #import "PushGankViewController.h"
+#import "Masonry.h"
 
 @interface PushGankViewController ()
 
@@ -23,17 +24,17 @@
 }
 
 - (void)initView{
-    _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+    _titleView = [[UIView alloc]init];
     //头部背景
-    _headImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH,130)];
+    _headImage = [[UIImageView alloc]init];
     _headImage.image = [UIImage imageNamed:@"notification_bg"];
     [_titleView addSubview:_headImage];
     //头部title
-    _titleLable = [[UILabel alloc]initWithFrame:CGRectMake(40, 40, 100, 30)];
+    _titleLable = [[UILabel alloc]init];
     _titleLable.text = @"干货推送";
     _titleLable.font = [UIFont systemFontOfSize:21];
     //头部content
-    _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(40, 70, SCREEN_WIDTH, 30)];
+    _contentLabel = [[UILabel alloc]init];
     _contentLabel.text = @"有新干货会第一时间推送给你～";
     _contentLabel.font = Font_14;
     _contentLabel.textColor = [UIColor grayColor];
@@ -79,6 +80,31 @@
     [self.view addSubview:_pushSwitch];
     [self.view addSubview:_textLable];
     [self.view addSubview:_nextLable];
+
+    [_titleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view.mas_top).offset(130);
+    }];
+    
+    [_headImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(self.view.mas_top).offset(130);
+    }];
+
+    [_titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.mas_equalTo(self.view).offset(40);
+        make.right.mas_equalTo(self.view.mas_right).offset(-80);
+        make.bottom.mas_equalTo(self.view.mas_top).offset(70);
+    }];
+
+    [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(40);
+        make.top.mas_equalTo(_titleLable.mas_bottom);
+        make.right.mas_equalTo(self.view.mas_right).offset(-80);
+        make.bottom.mas_equalTo(_titleLable.mas_bottom).offset(30);
+    }];
+    
+    
 }
 
 //开关监听事件

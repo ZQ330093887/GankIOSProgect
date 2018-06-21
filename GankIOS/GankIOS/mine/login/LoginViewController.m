@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "AFNetworking.h"
+#import "Masonry.h"
 
 @interface LoginViewController ()
 @property (strong, nonatomic) IBOutlet UITextField *nameFiele;
@@ -19,8 +20,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
-    self.view.backgroundColor =[UIColor whiteColor];
-    // Do any additional setup after loading the view.
 }
 
 
@@ -35,39 +34,39 @@
     [cancelView addGestureRecognizer:gr];
     
     /**********title***************/
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(30, 140, self.view.frame.size.width, 30)];
+    UILabel *title = [[UILabel alloc]init];
     title.text = @"Github 账号登录";
     title.textColor = [UIColor blackColor];
     title.font = [UIFont systemFontOfSize:25];
+    [self.view addSubview:title];
     /***********用户名******************/
-    _nameFiele = [[UITextField alloc]initWithFrame:CGRectMake(30, 210, self.view.frame.size.width-60, 55)];
-
     UILabel * nameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 210, 70, 30)];
     nameLab.text = @"账号";
+    _nameFiele = [[UITextField alloc]init];
     _nameFiele.placeholder = @"请输入用户名/邮箱地址";
     _nameFiele.leftView = nameLab;
     _nameFiele.leftViewMode = UITextFieldViewModeAlways;
-
+    [self.view addSubview:_nameFiele];
     /************下划线*********************/
-    UIView * nameLine = [[UIView alloc]initWithFrame:CGRectMake(0,_nameFiele.frame.size.height-1,_nameFiele.frame.size.width,1)];
+    UIView * nameLine = [[UIView alloc]init];
     nameLine.backgroundColor = LineColor;
     //添加下划线
     [_nameFiele addSubview:nameLine];
     /*****************密码******************/
-    _passField = [[UITextField alloc]initWithFrame:CGRectMake(30, 210+_nameFiele.frame.size.height, self.view.frame.size.width - 60, 55)];
     UILabel *pwLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 210+_nameFiele.frame.size.height, 70, 30)];
     pwLab.text = @"密码";
+    _passField = [[UITextField alloc]init];
     _passField.placeholder = @"请输入密码";
     _passField.leftView = pwLab;
     _passField.leftViewMode = UITextFieldViewModeAlways;
+    [self.view addSubview:_passField];
     /************下划线*********************/
-    UIView * pwLine = [[UIView alloc]initWithFrame:CGRectMake(0,_passField.frame.size.height-1,_passField.frame.size.width,1)];
+    UIView * pwLine = [[UIView alloc]init];
     pwLine.backgroundColor = LineColor;
     //添加下划线
     [_passField addSubview:pwLine];
     /*************登录按钮*******************/
     UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    loginButton.frame = CGRectMake(30, 370, self.view.frame.size.width - 60, 50);
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     loginButton.backgroundColor = TintColor;
@@ -77,10 +76,52 @@
 
     
     [self.view addSubview:loginButton];
-    [self.view addSubview:_nameFiele];
-    [self.view addSubview:_passField];
-    [self.view addSubview:title];
+    
     [self.view addSubview:cancelView];
+    int FLOCT_X_Y = 30;
+    
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(FLOCT_X_Y);
+        make.right.mas_equalTo(self.view).offset(-FLOCT_X_Y);
+        make.top.mas_equalTo(self.view.mas_top).offset(130);
+        make.bottom.mas_equalTo(self.view.mas_top).offset(160);
+    }];
+
+    [_nameFiele mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(FLOCT_X_Y);
+        make.right.mas_equalTo(self.view).offset(-FLOCT_X_Y);
+        make.top.mas_equalTo(title.mas_bottom).offset(50);
+        make.bottom.mas_equalTo(title.mas_bottom).offset(105);
+    }];
+    
+    [nameLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(FLOCT_X_Y);
+        make.right.mas_equalTo(self.view).offset(-FLOCT_X_Y);
+        make.top.mas_equalTo(_nameFiele.mas_bottom);
+        make.bottom.mas_equalTo(_nameFiele.mas_bottom).offset(1);
+    }];
+    
+    [_passField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(FLOCT_X_Y);
+        make.right.mas_equalTo(self.view).offset(-FLOCT_X_Y);
+        make.top.mas_equalTo(_nameFiele.mas_bottom);
+        make.bottom.mas_equalTo(_nameFiele.mas_bottom).offset(55);
+    }];
+    
+    [pwLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(FLOCT_X_Y);
+        make.right.mas_equalTo(self.view).offset(-FLOCT_X_Y);
+        make.top.mas_equalTo(_passField.mas_bottom);
+        make.bottom.mas_equalTo(_passField.mas_bottom).offset(1);
+    }];
+
+    [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(FLOCT_X_Y);
+        make.right.mas_equalTo(self.view).offset(-FLOCT_X_Y);
+        make.top.mas_equalTo(_passField.mas_bottom).offset(FLOCT_X_Y*2);
+        make.bottom.mas_equalTo(_passField.mas_bottom).offset(110);
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {

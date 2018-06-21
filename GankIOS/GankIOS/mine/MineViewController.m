@@ -20,6 +20,7 @@
 NSArray* item1;
 NSArray* item2;
 NSArray* item3;
+static NSString* const cellID = @"cellID";
 @implementation MineViewController
 
 - (void)viewDidLoad {
@@ -32,20 +33,6 @@ NSArray* item3;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showTabBar];
-}
-
-- (void)showTabBar {
-    if (self.tabBarController.tabBar.hidden == NO){
-        return;
-    }
-    UIView *contentView;
-    if ([[self.tabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]]){
-         contentView = [self.tabBarController.view.subviews objectAtIndex:1];
-    }else{
-        contentView = [self.tabBarController.view.subviews objectAtIndex:0];
-        contentView.frame = CGRectMake(contentView.bounds.origin.x, contentView.bounds.origin.y,  contentView.bounds.size.width, contentView.bounds.size.height - self.tabBarController.tabBar.frame.size.height);
-    }
-    self.tabBarController.tabBar.hidden = NO;
 }
 
 /**********导航部分***********/
@@ -164,7 +151,7 @@ NSArray* item3;
     return count;
 }
 // 为表格行定义一个静态字符串作为可重用标识符，在UITableView的cell缓存池当中所有的cell的标示符都是刚定义的cellID，因为重用时无所谓获取哪一个cell，只要是cell就可以
-static NSString* const cellID = @"cellID";
+
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     // 根据cellID从可重用表格行的队列中取出可重用的一个表格行UITableViewCell对象
     UITableViewCell* tableViewCell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -172,6 +159,9 @@ static NSString* const cellID = @"cellID";
     if (tableViewCell ==nil) {
         //创建一个UITableViewCell对象，并绑定到cellID
         tableViewCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        // 设置UITableViewCell附加按钮的样式
+        tableViewCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        tableViewCell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
     
     // 将单元格的边框设置为圆角
@@ -193,9 +183,6 @@ static NSString* const cellID = @"cellID";
     }
     // 取出cityList中索引为rowNo的元素作为UITableViewCell的文本标题
     tableViewCell.textLabel.text = str;
-    // 设置UITableViewCell附加按钮的样式
-    tableViewCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    tableViewCell.selectionStyle = UITableViewCellSelectionStyleGray;
     return tableViewCell;
 }
 /**

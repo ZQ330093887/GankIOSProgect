@@ -13,6 +13,7 @@
 
 @end
 NSArray * aboutList;
+static NSString* const cellID = @"cellID";
 @implementation AboutViewController
 
 - (void)viewDidLoad {
@@ -64,18 +65,18 @@ NSArray * aboutList;
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return aboutList.count;
 }
-static NSString* const cellID = @"cellID";
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     // 如果取出的表格行为nil
     if (cell ==nil) {
         //创建一个UITableViewCell对象，并绑定到cellID
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
     NSUInteger index = indexPath.row;
     cell.textLabel.text = [aboutList objectAtIndex:index];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     return cell;
 }
 /**
