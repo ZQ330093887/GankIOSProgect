@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "AFNetworking.h"
+#include "ShareMenuView.h"
 #import "Masonry.h"
 
 @interface LoginViewController ()
@@ -39,6 +40,12 @@
     title.textColor = [UIColor blackColor];
     title.font = [UIFont systemFontOfSize:25];
     [self.view addSubview:title];
+    
+    //头部view添加点击事件
+    UITapGestureRecognizer *gRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    title.userInteractionEnabled = YES; // 可以理解为设置label可被点击
+    [title addGestureRecognizer:gRecognizer];
+    
     /***********用户名******************/
     UILabel * nameLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 210, 70, 30)];
     nameLab.text = @"账号";
@@ -165,8 +172,18 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"失败了=%@",error);
         [self hideTextDialog];
-       [self showAllTextDialog:@"登录失败，稍后重试"];
+        [self showAllTextDialog:@"登录失败，稍后重试"];
     }];
+}
+
+//头部点击事件方法
+-(void)tapAction:(id)tap{
+    //本来是要接入友盟分享功能，但是在模拟器上测不了，所以自己写了一个类似的功能
+    ShareMenuView *mv = [[ShareMenuView alloc]init];
+    [mv setShareButtonClickBlock:^(NSInteger index) {
+        NSLog(@"第%ld",index);
+    }];
+    [mv show];
 }
 
 /*

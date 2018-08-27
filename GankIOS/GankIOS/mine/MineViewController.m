@@ -11,21 +11,26 @@
 #import "LoginViewController.h"
 #import "PushGankViewController.h"
 #import "WYWebController.h"
+#import "CategoryListViewController.h"
+#import "CategoryWelfareViewController.h"
+#import "SearchController.h"
 #import "BuildUpdateViewController.h"
 #import "ShareMenuView.h"
-
-@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate>
-
+#import "Masonry.h"
+@interface MineViewController ()
+@property(nonatomic,strong)NSArray *apps;
+@property(nonatomic,strong)NSArray *ts;
+@property(nonatomic,strong) NSArray<NSString *> *pictures;
+@property(nonatomic,strong) NSArray<NSString *> *titlePic;
 @end
-NSArray* item1;
-NSArray* item2;
-NSArray* item3;
-static NSString* const cellID = @"cellID";
-@implementation MineViewController
 
+static NSString* const cellID = @"cellID";
+
+@implementation MineViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBarItem];
+    [self loadImage];
     [self initView];
     
 }
@@ -46,61 +51,365 @@ static NSString* const cellID = @"cellID";
     //修改标题的字体大小和颜色
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
+
+/** 加载图片(本地) */
+- (void)loadImage {
+    NSMutableArray *picArray = [NSMutableArray array];
+     NSMutableArray *tp = [NSMutableArray array];
+    for (int i = 0; i < 16; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"category_%d",i];
+        [picArray addObject:imageName];
+    }
+   
+    for (int j = 9; j < 13; j++) {
+        NSString *imageName = [NSString stringWithFormat:@"category_%d",j];
+        [tp addObject:imageName];
+    }
+    _pictures = picArray.copy;
+    
+   
+    _titlePic = tp.copy;
+    
+    _ts = @[@"干货推荐",@"感谢编辑",@"版本更新",@"关于作者"];
+    
+}
+//1.加载数据
+- (NSArray *)apps{
+    if (!_apps) {
+        _apps=@[@"all",@"iOS",@"Android",@"前端",@"瞎推荐",@"拓展资源",@"App",@"休息视频",@"福利"];
+    }
+    return _apps;
+}
+
+
 /*************正文****************/
 - (void) initView{
-    //创建一个数组，存储需要显示的数据
-    item1 = @[@"干货推荐",@"感谢编辑们"];
-    item2 = @[@"关于",@"版本更新"];
-    item3 = @[@"推荐给朋友",@"Gank 的Android版本"];
-    //创建一个UITabView对象
-    UITableView* tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds style:UITableViewStyleGrouped];
+    self.view.backgroundColor = PullDownColor;
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    scrollView.backgroundColor = [UIColor whiteColor];
+    // 设置内容大小
+    scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+    // 是否反弹
+    scrollView.bounces = YES;
+    // 是否滚动
+    scrollView.scrollEnabled = YES;
+    //是否显示滚动条
+    scrollView.showsHorizontalScrollIndicator = NO;
     
-    //创建一个脚Label
-    UILabel * footerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
-    footerLabel.text = @"v1.1.0（build 23）";
-    footerLabel.font =  [UIFont systemFontOfSize:12];
-    footerLabel.textColor= [UIColor blackColor];
-    footerLabel.textAlignment  = NSTextAlignmentCenter;
     
-    //设置行cell高（默认44px）
-    tableView.rowHeight = 48;
-    //设置分割线颜色
-    //tableView.separatorColor = [UIColor grayColor];
-    //设置分割线风格
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    UIView * titleV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100)];
-    titleV.backgroundColor = [UIColor whiteColor];
+    UIView * titleV = [[UIView alloc]initWithFrame:CGRectMake(15, 10, SCREEN_WIDTH-30, 80)];
+    titleV.backgroundColor = PullDownColor;
+    titleV.layer.cornerRadius = 10;
     //头部view添加点击事件
     UITapGestureRecognizer *gRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [titleV addGestureRecognizer:gRecognizer];
-    UILabel *  _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, SCREEN_WIDTH-40, 30)];
+    
+    UIImageView *imgLogo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    //设置圆角
+    imgLogo.layer.cornerRadius = 25;
+    //将多余的部分切掉
+    imgLogo.layer.masksToBounds = YES;
+    
+    UILabel *  _titleLabel = [[UILabel alloc] init];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.text = @"用 Github登录";
     _titleLabel.numberOfLines = 0;
     _titleLabel.font = [UIFont systemFontOfSize:21];
-    titleV.backgroundColor = [UIColor whiteColor];
     
-    UILabel *  _titleContent = [[UILabel alloc] initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-40, 30)];
+    UILabel *  _titleContent = [[UILabel alloc] init];
     _titleContent.textAlignment = NSTextAlignmentLeft;
-    _titleContent.textColor = [UIColor grayColor];
+    _titleContent.textColor = AdTitleColor3;
     _titleContent.text = @"登录后可提交干货";
     _titleContent.numberOfLines = 0;
     _titleContent.font = [UIFont systemFontOfSize:14];
     
-    //设置UITableView的页眉控件
-    tableView.tableHeaderView = titleV;
-    //设置UITableView的页脚控件
-    tableView.tableFooterView = footerLabel;
-    //设置数据源代理，必须实现协议UITableViewDataSource中的相关方法
-    tableView.delegate = self;
-    tableView.dataSource = self;
-   
+    UIView *viewType = [[UIView alloc]init];
+    UIView *flutter = [[UIView alloc]init];
+    UIView *ios = [[UIView alloc]init];
+    UIView *android = [[UIView alloc]init];
+    UIView *wx = [[UIView alloc]init];
+    UIView *line = [[UIView alloc]init];
+    UIView *line2 = [[UIView alloc]init];
+    UIView *line3 = [[UIView alloc]init];
+    UIView *line4 = [[UIView alloc]init];
+    UIView *line5 = [[UIView alloc]init];
+    
+    UILabel *  countFlutter = [[UILabel alloc] init];
+    countFlutter.textAlignment = NSTextAlignmentLeft;
+    countFlutter.textColor = AdTitleColor3;
+    countFlutter.text = @"0";
+    countFlutter.numberOfLines = 0;
+    countFlutter.font = [UIFont systemFontOfSize:16];
+    
+    UILabel *  titleFlutter = [[UILabel alloc] init];
+    titleFlutter.textAlignment = NSTextAlignmentLeft;
+    titleFlutter.textColor = AdTitleColor3;
+    titleFlutter.text = @"Flutter 版";
+    titleFlutter.numberOfLines = 0;
+    titleFlutter.font = [UIFont systemFontOfSize:14];
+    
+    UILabel *  countWX = [[UILabel alloc] init];
+    countWX.textAlignment = NSTextAlignmentLeft;
+    countWX.textColor = AdTitleColor3;
+    countWX.text = @"17";
+    countWX.numberOfLines = 0;
+    countWX.font = [UIFont systemFontOfSize:16];
+    
+    UILabel *  titleWX = [[UILabel alloc] init];
+    titleWX.textAlignment = NSTextAlignmentLeft;
+    titleWX.textColor = AdTitleColor3;
+    titleWX.text = @"小程序 版";
+    titleWX.numberOfLines = 0;
+    titleWX.font = [UIFont systemFontOfSize:14];
+    
+    UILabel *  countAndroid = [[UILabel alloc] init];
+    countAndroid.textAlignment = NSTextAlignmentLeft;
+    countAndroid.textColor = AdTitleColor3;
+    countAndroid.text = @"218";
+    countAndroid.numberOfLines = 0;
+    countAndroid.font = [UIFont systemFontOfSize:16];
+    
+    UILabel *  titleAndroid = [[UILabel alloc] init];
+    titleAndroid.textAlignment = NSTextAlignmentLeft;
+    titleAndroid.textColor = AdTitleColor3;
+    titleAndroid.text = @"android 版";
+    titleAndroid.numberOfLines = 0;
+    titleAndroid.font = [UIFont systemFontOfSize:14];
+    
+    UILabel *  countIos = [[UILabel alloc] init];
+    countIos.textAlignment = NSTextAlignmentLeft;
+    countIos.textColor = AdTitleColor3;
+    countIos.text = @"33";
+    countIos.numberOfLines = 0;
+    countIos.font = [UIFont systemFontOfSize:16];
+    
+    UILabel *  titleIos = [[UILabel alloc] init];
+    titleIos.textAlignment = NSTextAlignmentLeft;
+    titleIos.textColor = AdTitleColor3;
+    titleIos.text = @"iOS 版";
+    titleIos.numberOfLines = 0;
+    titleIos.font = [UIFont systemFontOfSize:14];
+    
+    line.backgroundColor = PullDownColor;
+    line2.backgroundColor = PullDownColor;
+    line3.backgroundColor = PullDownColor;
+    line4.backgroundColor = PullDownColor;
+    line5.backgroundColor = PullDownColor;
+    
+    /** 九宫格形式添加图片 */
+    [self addPictures:scrollView marHeight:200 scHeight:70 scWidth:SCREEN_WIDTH/3 colCount:3 imageArray:_pictures titleArray:self.apps];
+    
+    [self addPictures:scrollView marHeight:450 scHeight:70 scWidth:SCREEN_WIDTH/4 colCount:4 imageArray:_titlePic titleArray:_ts];
+    
     [titleV addSubview:_titleContent];
     [titleV addSubview:_titleLabel];
-    [tableView addSubview:titleV];
-    [self.view addSubview:tableView];
+    [titleV addSubview:imgLogo];
+    
+    [viewType addSubview:line];
+    [viewType addSubview:line2];
+    [viewType addSubview:line3];
+    
+    [flutter addSubview:countFlutter];
+    [flutter addSubview:titleFlutter];
+    
+    [wx addSubview:countWX];
+    [wx addSubview:titleWX];
+    
+    [android addSubview:countAndroid];
+    [android addSubview:titleAndroid];
+    
+    [ios addSubview:countIos];
+    [ios addSubview:titleIos];
+    
+    [viewType addSubview:flutter];
+    [viewType addSubview:android];
+    [viewType addSubview:ios];
+    [viewType addSubview:wx];
+    
+    [scrollView addSubview:titleV];
+    [scrollView addSubview:viewType];
+    [scrollView addSubview:line4];
+    [scrollView addSubview:line5];
+
+    [self.view addSubview:scrollView];
+    
+    
+    [imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.updateExisting = YES;
+        make.width.height.offset(50);
+        make.left.equalTo(titleV).offset(40);
+        make.centerY.equalTo(titleV.mas_centerY);
+    }];
+
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(titleV.mas_right);
+        make.top.equalTo(titleV.mas_top).offset(15);
+        make.left.equalTo(imgLogo.mas_right).offset(20);
+    }];
+
+    [_titleContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_titleLabel.mas_bottom).offset(5);
+        make.left.equalTo(imgLogo.mas_right).offset(20);
+    }];
+
+    [viewType mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleV.mas_bottom).offset(5);
+        make.height.offset(80);
+        make.width.offset(SCREEN_WIDTH);
+    }];
+    
+    [flutter mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(SCREEN_WIDTH/4-1);
+        make.height.offset(80);
+        make.top.equalTo(viewType.mas_top);
+    }];
+    
+    [countFlutter mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(flutter);
+        make.top.equalTo(flutter.mas_top).offset(15);
+    }];
+
+    [titleFlutter mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.centerX.equalTo(flutter);
+        make.top.equalTo(countFlutter.mas_bottom).offset(5);
+    }];
+    
+    
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(1);
+        make.height.offset(15);
+        make.top.equalTo(titleV.mas_bottom).offset(45);
+        make.left.equalTo(flutter.mas_right);
+    }];
+    
+    [wx mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(SCREEN_WIDTH/4-2);
+        make.height.offset(80);
+        make.top.equalTo(titleV.mas_bottom).offset(5);
+        make.left.equalTo(line.mas_right);
+    }];
+    
+    [countWX mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(wx);
+        make.top.equalTo(wx.mas_top).offset(15);
+    }];
+    
+    [titleWX mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(wx);
+        make.top.equalTo(countWX.mas_bottom).offset(5);
+    }];
+    
+    [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(1);
+        make.height.offset(15);
+        make.top.equalTo(titleV.mas_bottom).offset(45);
+        make.left.equalTo(wx.mas_right);
+    }];
+    [android mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(SCREEN_WIDTH/4-2);
+        make.height.offset(80);
+        make.top.equalTo(titleV.mas_bottom).offset(5);
+        make.left.equalTo(line2.mas_right);
+    }];
+    
+    [countAndroid mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(android);
+        make.top.equalTo(android.mas_top).offset(15);
+    }];
+    
+    [titleAndroid mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(android);
+        make.top.equalTo(countAndroid.mas_bottom).offset(5);
+    }];
+    [line3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(1);
+        make.height.offset(15);
+        make.top.equalTo(titleV.mas_bottom).offset(45);
+        make.left.equalTo(android.mas_right);
+    }];
+    [ios mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(SCREEN_WIDTH/4-2);
+        make.height.offset(80);
+        make.top.equalTo(titleV.mas_bottom).offset(5);
+        make.left.equalTo(line3.mas_right);
+    }];
+    
+    [countIos mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(ios);
+        make.top.equalTo(ios.mas_top).offset(15);
+    }];
+    
+    [titleIos mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(ios);
+        make.top.equalTo(countIos.mas_bottom).offset(5);
+    }];
+    
+    [line4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(SCREEN_WIDTH);
+        make.height.offset(10);
+        make.top.equalTo(viewType.mas_bottom);
+    }];
+    
+    [line5 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(SCREEN_WIDTH);
+        make.height.offset(10);
+        make.top.equalTo(viewType.mas_top).offset(330);
+    }];
+    
+    flutter.mas_key = @"https://github.com/ZQ330093887/GankFlutter";
+    [self initGesture:flutter action:@selector(startViewController:)];
+    
+    wx.mas_key = @"https://github.com/ZQ330093887/GankWX";
+    [self initGesture:wx action:@selector(startViewController:)];
+    
+    android.mas_key = @"https://github.com/ZQ330093887/ConurbationsAndroid";
+    [self initGesture:android action:@selector(startViewController:)];
+    
+    ios.mas_key = @"https://github.com/ZQ330093887/GankIOSProgect";
+    [self initGesture:ios action:@selector(startViewController:)];
+}
+
+- (void)addPictures:(UIScrollView*) scrollView marHeight:(int) mh scHeight:(int) height scWidth:(int) width colCount:(int) cc imageArray:(NSArray*)imgArray
+ titleArray:(NSArray*)titleArray{
+    
+//    CGFloat margin=(self.view.frame.size.width-COL_COUNT*PIC_HEIGHT)/(COL_COUNT+1);
+    NSUInteger count= titleArray.count;
+    for (int i=0; i<count; i++) {
+        int row=i/cc;//行号
+        //1/3=0,2/3=0,3/3=1;
+        int loc=i%cc;//列号
+        // PointX
+        CGFloat appviewx=(1+width)*loc;
+        // PointY
+        CGFloat appviewy=(5+height)*row;
+        
+        //创建uiview控件
+        UIView *appview=[[UIView alloc]initWithFrame:CGRectMake(appviewx, appviewy+mh, width, height)];
+//        [appview setBackgroundColor:[UIColor purpleColor]];
+//        appview.tag = i;
+        [appview setMas_key:titleArray[i]];
+        [scrollView addSubview:appview];
+        
+        
+        //创建uiview控件中的子视图
+        UIImageView *appimageview=[[UIImageView alloc]initWithFrame:CGRectMake(appview.frame.size.width/2-width/2, 0, width, 40)];
+        UIImage *appimage=[UIImage imageNamed:imgArray[i]];
+        appimageview.image=appimage;
+        [appimageview setContentMode:UIViewContentModeScaleAspectFit];
+        [appview addSubview:appimageview];
+        
+        //创建文本标签
+        UILabel *applable=[[UILabel alloc]initWithFrame:CGRectMake(appview.frame.size.width/2-45, 45, 90, 20)];
+        [applable setText:titleArray[i]];
+        [applable setTextAlignment:NSTextAlignmentCenter];
+        [applable setFont:[UIFont systemFontOfSize:14.0]];
+        [appview addSubview:applable];
+        
+        [self initGesture:appview action:@selector(clickItem:)];
+//        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickItem:)];
+//        [appview addGestureRecognizer:gesture];
+    }
 }
 
 //头部点击事件方法
@@ -120,118 +429,12 @@ static NSString* const cellID = @"cellID";
 -(void)selectRightAction:(id)sender{
     [self startLoginVC];
 }
-//返回表格分区数，默认返回1
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 20;
-}
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    return [UIView new];
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
-}
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    return [UIView new];
-}
-// 提供tableView中的分区中的数据的数量
--(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSUInteger count = 0;
-    for (int i=0; i<3; i++) {
-        if (i==0) {
-           count = item1.count;
-        }else if (i==1){
-            count = item2.count;
-        }else if (i==2){
-            count = item3.count;
-        }
-    }
-    return count;
-}
-// 为表格行定义一个静态字符串作为可重用标识符，在UITableView的cell缓存池当中所有的cell的标示符都是刚定义的cellID，因为重用时无所谓获取哪一个cell，只要是cell就可以
 
--(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    // 根据cellID从可重用表格行的队列中取出可重用的一个表格行UITableViewCell对象
-    UITableViewCell* tableViewCell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    // 如果取出的表格行为nil
-    if (tableViewCell ==nil) {
-        //创建一个UITableViewCell对象，并绑定到cellID
-        tableViewCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        // 设置UITableViewCell附加按钮的样式
-        tableViewCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        tableViewCell.selectionStyle = UITableViewCellSelectionStyleGray;
-    }
-    
-    // 将单元格的边框设置为圆角
-    //    tableViewCell.layer.cornerRadius =12;
-    //    tableViewCell.layer.masksToBounds = YES;
-    //UITableView声明了一个NSIndexPath的类别，主要用 来标识当前cell的在tableView中的位置，该类别有section和row两个属性，
-    //section标识当前cell处于第几个section中，row代表在该section中的第几行。
-    // 从IndexPath参数获取当前行的行号
- 
-    NSUInteger rowNo = indexPath.row;
-    NSUInteger section = indexPath.section;
-    NSString * str = @"";
-    if (section==0) {
-        str = [item1 objectAtIndex:rowNo];
-    }else if (section==1){
-        str = [item2 objectAtIndex:rowNo];
-    }else if (section==2){
-         str = [item3 objectAtIndex:rowNo];
-    }
-    // 取出cityList中索引为rowNo的元素作为UITableViewCell的文本标题
-    tableViewCell.textLabel.text = str;
-    return tableViewCell;
+- (void) initGesture:(UIView*) v action:(nullable SEL)action{
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:action];
+    [v addGestureRecognizer:gesture];
 }
-/**
- *点击事件
- */
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSUInteger rowNo = indexPath.row;
-    NSUInteger section = indexPath.section;
-    NSString * str = @"";
-    if (section==0) {
-        str = [item1 objectAtIndex:rowNo];
-    }else if (section==1){
-        str = [item2 objectAtIndex:rowNo];
-    }else if (section==2){
-        str = [item3 objectAtIndex:rowNo];
-    }
-    //点击关于跳转
-    if ([str isEqualToString:@"关于"]) {
-        AboutViewController *about = [[AboutViewController alloc] init];
-        about.mTitle = str;
-        [self.navigationController pushViewController:about animated:YES];
-    }else if ([str isEqualToString:@"感谢编辑们"]){
-        WYWebController *webVC = [WYWebController new];
-        webVC.url = @"http://gank.io/backbone";
-        [self.navigationController pushViewController:webVC animated:YES];
-    }else if ([str isEqualToString:@"干货推荐"]){
-        PushGankViewController *pg = [[PushGankViewController alloc]init];
-        pg.mTitle = str;
-        [self.navigationController pushViewController:pg animated:YES];
-    }else if ([str isEqualToString:@"版本更新"]){
-        BuildUpdateViewController *updateBd = [[BuildUpdateViewController alloc]init];
-        updateBd.mTitle = str;
-        [self.navigationController pushViewController:updateBd animated:YES];
-    }else if([str isEqualToString:@"Gank 的Android版本"]){
-        WYWebController *webVC = [WYWebController new];
-        webVC.url = @"https://github.com/ZQ330093887/ConurbationsAndroid";
-        [self.navigationController pushViewController:webVC animated:YES];
-    }else if ([str isEqualToString:@"推荐给朋友"]){
-        //本来是要接入友盟分享功能，但是在模拟器上测不了，所以自己写了一个类似的功能
-        ShareMenuView *mv = [[ShareMenuView alloc]init];
-        [mv setShareButtonClickBlock:^(NSInteger index) {
-            NSLog(@"第%ld",index);
-        }];
-        [mv show];
-        
-    }
-    //item 按下抬起的时候返回正常背景
-    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
-}
+
 //启动loginvc
 - (void)startLoginVC{
     LoginViewController *loginConteroller = [[LoginViewController alloc]init];
@@ -239,11 +442,42 @@ static NSString* const cellID = @"cellID";
     [self presentViewController:loginConteroller animated:NO completion:nil];
 }
 
+-(void)clickItem:(UITapGestureRecognizer *) gesture{
+    NSString * title = gesture.view.mas_key;
+    NSLog(@"=======>%@",title);
+
+    CategoryListViewController *cList = [[CategoryListViewController alloc] init];
+    CategoryWelfareViewController *wList = [[CategoryWelfareViewController alloc]init];
+    cList.mTitle = title;
+    wList.mTitle  =title;
+    if ([title isEqualToString:@"福利"]) {
+        [self.navigationController pushViewController:wList animated:YES];
+    } else if ([title isEqualToString:@"干货推荐"]){
+        PushGankViewController *pg = [[PushGankViewController alloc]init];
+        pg.mTitle = title;
+        [self.navigationController pushViewController:pg animated:YES];
+    }else if ([title isEqualToString:@"版本更新"]){
+        BuildUpdateViewController *updateBd = [[BuildUpdateViewController alloc]init];
+        updateBd.mTitle = title;
+        [self.navigationController pushViewController:updateBd animated:YES];
+    }else if([title isEqualToString:@"感谢编辑"]){
+        WYWebController *webVC = [WYWebController new];
+        webVC.url = @"http://gank.io";
+        [self.navigationController pushViewController:webVC animated:YES];
+    }else if ([title isEqualToString:@"关于作者"]){
+        WYWebController *webVC = [WYWebController new];
+        webVC.url = @"https://www.jianshu.com/u/9681f3bbb8c2";
+        [self.navigationController pushViewController:webVC animated:YES];
+    }else{
+        [self.navigationController pushViewController:cList animated:YES];
+    }
+}
+
 /**
  启动网页
- @param url 网页地址
  */
-- (void)startViewController:(NSString*) url{
+- (void) startViewController:(UITapGestureRecognizer *) gesture{
+    NSString *url = gesture.view.mas_key;
     WYWebController *webVC = [WYWebController new];
     webVC.url = url;
     [self.navigationController pushViewController:webVC animated:YES];
