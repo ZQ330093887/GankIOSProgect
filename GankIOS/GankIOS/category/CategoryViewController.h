@@ -7,7 +7,13 @@
 //
 
 #import "BaseViewController.h"
+#import "JXCategoryTitleView.h"
 
+#define WindowsSize [UIScreen mainScreen].bounds.size
 @interface CategoryViewController : BaseViewController
+
+@property (nonatomic, strong) JXCategoryTitleView *categoryView;
+
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end

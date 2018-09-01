@@ -19,10 +19,7 @@
 #import "STPhotoBroswer.h"
 
 @interface CategoryWelfareViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
-
 @property (nonatomic,strong) NSMutableArray *welfareArray;//数据存储
-
-
 @end
 
 

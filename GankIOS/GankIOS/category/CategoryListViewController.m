@@ -72,7 +72,6 @@ static NSString* const cellID = @"cellID";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CaneryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-   
     NSUInteger index = indexPath.row;
     BookVO *book = (BookVO *)[self.bookArray objectAtIndex:index];
     cell.accessoryType = UITableViewCellAccessoryNone;

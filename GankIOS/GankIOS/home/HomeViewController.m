@@ -208,10 +208,10 @@ static NSString* const cellID = @"cellID";
     
     NSString * baseUrl = @"http://gank.io/api/day/";
     NSString * urlStr = [NSString stringWithFormat:@"%@%@", baseUrl,todayDate];
-    //NSString * urlStr = @"http://gank.io/api/day/2018/5/22";
+    NSString * todayUrl = @"http://gank.io/api/today";
     NSLog(@"我的URL:%@",urlStr);
     __weak typeof(self) WeakSelf = self;
-    [super GetRequsetDataUrlString:urlStr Parameters:nil];
+    [super GetRequsetDataUrlString:isRefresh ? todayUrl: urlStr Parameters:nil];
     self.GetSuccess = ^(id responseObject) {
         //数据获取成功之后就跟新缓存
         NSData *mData= [NSJSONSerialization dataWithJSONObject:(NSDictionary *)responseObject options:NSJSONWritingPrettyPrinted error:nil];
@@ -287,7 +287,7 @@ static NSString* const cellID = @"cellID";
 
 // 实现协议里面的方法(返回值回调)
 - (void)showViewGiveValue:(NSString *)text{
-    [self getNetworkData:YES getDay:text];
+    [self getNetworkData:NO getDay:text];
 }
 
 -(NSString *)getDateToday{

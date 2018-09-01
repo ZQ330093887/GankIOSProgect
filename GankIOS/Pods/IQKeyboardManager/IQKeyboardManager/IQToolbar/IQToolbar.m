@@ -25,14 +25,22 @@
 #import "IQKeyboardManagerConstantsInternal.h"
 #import "IQUIView+Hierarchy.h"
 
+#import <UIKit/UIButton.h>
 #import <UIKit/UIAccessibility.h>
 #import <UIKit/UIViewController.h>
+
+@interface IQTitleBarButtonItem (PrivateAccessor)
+
+@property(nonatomic, strong) UIButton *titleButton;
+
+@end
 
 @implementation IQToolbar
 @synthesize previousBarButton = _previousBarButton;
 @synthesize nextBarButton = _nextBarButton;
 @synthesize titleBarButton = _titleBarButton;
 @synthesize doneBarButton = _doneBarButton;
+@synthesize fixedSpaceBarButton = _fixedSpaceBarButton;
 
 +(void)initialize
 {
@@ -78,6 +86,16 @@
     return self;
 }
 
+-(void)dealloc
+{
+    self.items = nil;
+    _previousBarButton = nil;
+    _nextBarButton = nil;
+    _titleBarButton = nil;
+    _doneBarButton = nil;
+    _fixedSpaceBarButton = nil;
+}
+
 -(IQBarButtonItem *)previousBarButton
 {
     if (_previousBarButton == nil)
@@ -115,13 +133,34 @@
 {
     if (_doneBarButton == nil)
     {
-        _doneBarButton = [[IQBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStyleDone target:nil action:nil];
+        _doneBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
         _doneBarButton.accessibilityLabel = @"Toolbar Done Button";
     }
     
     return _doneBarButton;
 }
 
+-(IQBarButtonItem *)fixedSpaceBarButton
+{
+    if (_fixedSpaceBarButton == nil)
+    {
+        _fixedSpaceBarButton = [[IQBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+#ifdef __IPHONE_11_0
+        if (@available(iOS 10.0, *))
+#else
+            if (IQ_IS_IOS10_OR_GREATER)
+#endif
+            {
+                [_fixedSpaceBarButton setWidth:6];
+            }
+            else
+            {
+                [_fixedSpaceBarButton setWidth:20];
+            }
+    }
+    
+    return _fixedSpaceBarButton;
+}
 
 -(CGSize)sizeThatFits:(CGSize)size
 {
@@ -136,13 +175,16 @@
 {
     [super setBarStyle:barStyle];
     
-    if (barStyle == UIBarStyleDefault)
+    if (self.titleBarButton.selectableTitleColor == nil)
     {
-        [self.titleBarButton setSelectableTextColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0]];
-    }
-    else
-    {
-        [self.titleBarButton setSelectableTextColor:[UIColor yellowColor]];
+        if (barStyle == UIBarStyleDefault)
+        {
+            [self.titleBarButton.titleButton setTitleColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [self.titleBarButton.titleButton setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -171,7 +213,7 @@
         
         BOOL isTitleBarButtonFound = NO;
         
-        NSArray *subviews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
+        NSArray<UIView*> *subviews = [self.subviews sortedArrayUsingComparator:^NSComparisonResult(UIView *view1, UIView *view2) {
             
             CGFloat x1 = CGRectGetMinX(view1.frame);
             CGFloat y1 = CGRectGetMinY(view1.frame);

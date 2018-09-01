@@ -13,5 +13,6 @@ target 'GankIOS' do
     pod 'UITableView+FDTemplateLayoutCell'
     pod 'UICollectionView-ARDynamicHeightLayoutCell'
     pod 'FSCalendar'
+    pod 'JXCategoryView'
 
 end

@@ -10,29 +10,24 @@
 #import "CategoryListViewController.h"
 #import "CategoryWelfareViewController.h"
 #import "SearchController.h"
+#import "JXCategoryTitleView.h"
+#import "CategoryListViewController.h"
+#import "JXCategoryLineStyleView.h"
 
-// 宽度(自定义)
-#define PIC_WIDTH 120
-// 高度(自定义)
-#define PIC_HEIGHT 110
-// 列数(自定义)
-#define COL_COUNT 3
 
 @interface CategoryViewController ()
-@property(nonatomic,strong)NSArray *apps;
+@property (nonatomic, strong) NSArray *titles;
 @end
 
 @implementation CategoryViewController
-NSArray<NSString *> *pictures;
 
 - (void)viewDidLoad {
+     _titles = @[@"福利",@"all", @"iOS", @"Android", @"前端", @"瞎推荐", @"拓展资源", @"App", @"休息视频"];
     [super viewDidLoad];
     [self initBarItem];
-    [self loadImage];
     [self addPictures];
     // Do any additional setup after loading the view.
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -44,6 +39,12 @@ NSArray<NSString *> *pictures;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = (self.categoryView.selectedIndex == 0);
+}
+
 //顶部导航栏
 -(void) initBarItem{
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_search"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
@@ -52,85 +53,79 @@ NSArray<NSString *> *pictures;
     //修改标题的字体大小和颜色
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
-/** 加载图片(本地) */
-- (void)loadImage {
-    NSMutableArray *picArray = [NSMutableArray array];
-    for (int i = 0; i < 16; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"category_%d",i];
-        [picArray addObject:imageName];
-    }
-    pictures = picArray.copy;
-}
-//1.加载数据
-- (NSArray *)apps{
-    if (!_apps) {
-        _apps=@[@"all",@"iOS",@"Android",@"前端",@"瞎推荐",@"拓展资源",@"App",@"休息视频",@"福利"];
-    }
-    return _apps;
-}
-/** 九宫格形式添加图片 */
+
+/** 设置导航栏 */
 - (void)addPictures {
-    
-    CGFloat margin=(self.view.frame.size.width-COL_COUNT*PIC_HEIGHT)/(COL_COUNT+1);
-    NSUInteger count= self.apps.count;
-    for (int i=0; i<count; i++) {
-        int row=i/COL_COUNT;//行号
-        //1/3=0,2/3=0,3/3=1;
-        int loc=i%COL_COUNT;//列号
-        // PointX
-        CGFloat appviewx=margin+(margin+PIC_WIDTH)*loc;
-         // PointY
-        CGFloat appviewy=margin+(margin+PIC_HEIGHT)*row;
-        
-        
-        //创建uiview控件
-        UIView *appview=[[UIView alloc]initWithFrame:CGRectMake(appviewx, appviewy+40, PIC_WIDTH, PIC_HEIGHT)];
-        //[appview setBackgroundColor:[UIColor purpleColor]];
-        appview.tag = i;
-        [self.view addSubview:appview];
-        
-        
-        //创建uiview控件中的子视图
-        UIImageView *appimageview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 90, 68)];
-        UIImage *appimage=[UIImage imageNamed:pictures[i]];
-        appimageview.image=appimage;
-        [appimageview setContentMode:UIViewContentModeScaleAspectFit];
-        [appview addSubview:appimageview];
-        
-        //创建文本标签
-        UILabel *applable=[[UILabel alloc]initWithFrame:CGRectMake(0, 73, 90, 20)];
-        [applable setText:self.apps[i]];
-        [applable setTextAlignment:NSTextAlignmentCenter];
-        [applable setFont:[UIFont systemFontOfSize:14.0]];
-        [appview addSubview:applable];
-        
-        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickItem:)];
-        [appview addGestureRecognizer:gesture];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.categoryView.titles = self.titles;
+
+    CGFloat naviHeight = 64;
+    if (@available(iOS 11.0, *)) {
+        if (WindowsSize.height == 812) {
+            naviHeight = [UIApplication sharedApplication].keyWindow.safeAreaInsets.top + 44;
+        }
     }
+
+    NSUInteger count = [self preferredListViewCount];
+    CGFloat categoryViewHeight = [self preferredCategoryViewHeight];
+    CGFloat width = WindowsSize.width;
+    CGFloat height = WindowsSize.height - naviHeight - categoryViewHeight;
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, categoryViewHeight, width, height)];
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.contentSize = CGSizeMake(width*count, height);
+    [self.view addSubview:self.scrollView];
+
+    for (int i = 0; i < count; i ++) {
+        NSString * title = _titles[i];
+        if ([title isEqualToString:@"福利"]) {
+            CategoryWelfareViewController *welfateVC = [[CategoryWelfareViewController alloc] init];
+             welfateVC.mTitle = title;
+            [self addChildViewController: welfateVC];
+             welfateVC.view.frame = CGRectMake(i*width, 0, width, height);
+            [self.scrollView addSubview: welfateVC.view];
+        }else{
+            CategoryListViewController *listVC = [[CategoryListViewController alloc] init];
+            listVC.mTitle = title;
+            [self addChildViewController:listVC];
+            listVC.view.frame = CGRectMake(i*width, 0, width, height);
+            [self.scrollView addSubview:listVC.view];
+        }
+    }
+
+    _categoryView = [[JXCategoryTitleView alloc] initWithFrame:CGRectMake(0, 0, WindowsSize.width, categoryViewHeight)];
+    _categoryView.backgroundColor = PullDownColor;
+    _categoryView.titleSelectedColor = TintColor;
+    _categoryView.indicatorLineViewColor = TintColor;
+    _categoryView.titles = _titles;
+    _categoryView.contentScrollView = self.scrollView;
+    
+    _categoryView.indicatorLineViewShowEnabled = YES;
+    _categoryView.indicatorLineWidth = 20;
+    _categoryView.lineStyle = JXCategoryLineStyle_JD;
+
+
+    [self.view addSubview:self.categoryView];
+
 }
 
-/*
-#pragma mark - Navigation
+- (Class)preferredCategoryViewClass {
+    return [JXCategoryTitleView class];
+}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSUInteger)preferredListViewCount {
+    return self.titles.count;
 }
-*/
--(void)clickItem:(UITapGestureRecognizer *) gesture{
-    NSString *title = _apps[gesture.view.tag];
-    
-    CategoryListViewController *cList = [[CategoryListViewController alloc] init];
-    CategoryWelfareViewController *wList = [[CategoryWelfareViewController alloc]init];
-    cList.mTitle = title;
-    wList.mTitle  =title;
-    if ([title isEqualToString:@"福利"]) {
-        [self.navigationController pushViewController:wList animated:YES];
-    }else{
-        [self.navigationController pushViewController:cList animated:YES];
-    }
+
+- (CGFloat)preferredCategoryViewHeight {
+    return 50;
 }
+
+- (void)categoryView:(JXCategoryBaseView *)categoryView didSelectedItemAtIndex:(NSInteger)index {
+    [self.scrollView setContentOffset:CGPointMake(self.scrollView.bounds.size.width*index, 0) animated:YES];
+    //侧滑手势处理
+    self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
+}
+
 -(void)selectRightAction:(id)sender{
     SearchController * searchCtr = [[SearchController alloc]init];
     searchCtr.mTitle = @"搜索";
