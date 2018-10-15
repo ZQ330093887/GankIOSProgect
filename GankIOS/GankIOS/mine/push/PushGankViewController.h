@@ -14,7 +14,7 @@
 
 @property(nonatomic,retain) UILabel     *titleLable;//头部title
 @property(nonatomic,retain) UILabel     *contentLabel;//头部content
-@property(nonatomic,retain) UIImageView *headImage;//头部bg
+//@property(nonatomic,retain) UIImageView *headImage;//头部bg
 @property(nonatomic,retain) UIView      *titleView;//头部view
 @property(nonatomic,retain) UISwitch    *pushSwitch;//推送开关
 

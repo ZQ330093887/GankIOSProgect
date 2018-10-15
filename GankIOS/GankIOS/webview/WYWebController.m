@@ -63,7 +63,8 @@
 }
 
 - (void)setupUI {
-    _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, SCREEN_WIDTH, SCREEN_HEIGHT-SafeAreaTopHeight-SafeAreaBottomSpaceHeight )];
+    _webView.backgroundColor = [UIColor blueColor];
     _webView.delegate = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     [_webView loadRequest:request];
@@ -76,7 +77,7 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     
     _progressLayer = [WYWebProgressLayer layerWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 2)];
-    [self.view.layer addSublayer:_progressLayer];
+    [_webView.layer addSublayer:_progressLayer];
     [_progressLayer startLoad];
 }
 

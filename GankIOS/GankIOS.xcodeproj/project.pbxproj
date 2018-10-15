@@ -49,12 +49,12 @@
 		3771687620A31AFD001DD2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771687520A31AFD001DD2D5 /* main.m */; };
 		3771687F20A31C20001DD2D5 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771687E20A31C20001DD2D5 /* HomeViewController.m */; };
 		3771688320A31CBE001DD2D5 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771688220A31CBE001DD2D5 /* CategoryViewController.m */; };
-		3771688A20A325FA001DD2D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771688920A325FA001DD2D5 /* Assets.xcassets */; };
 		37808A3620B5CB6200E3F025 /* WYWebProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A2D20B5CB5F00E3F025 /* WYWebProgressLayer.m */; };
 		37808A3720B5CB6200E3F025 /* WLWebProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */; };
 		37808A3820B5CB6200E3F025 /* NSTimer+addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3020B5CB6000E3F025 /* NSTimer+addition.m */; };
 		37808A3920B5CB6200E3F025 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3220B5CB6000E3F025 /* UIView+Frame.m */; };
 		37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3320B5CB6100E3F025 /* WYWebController.m */; };
+		3789444021749EF80011B6DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3789443F21749EF80011B6DC /* Assets.xcassets */; };
 		37A8BCDD20BC53FA0032B253 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */; };
 		37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1486B20BD2427002B8A65 /* BaseViewController.m */; };
 		37C1E9DF20D260BD006C0E0A /* BuildUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9DE20D260BD006C0E0A /* BuildUpdateViewController.m */; };
@@ -158,7 +158,6 @@
 		3771687E20A31C20001DD2D5 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		3771688120A31CBE001DD2D5 /* CategoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		3771688220A31CBE001DD2D5 /* CategoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
-		3771688920A325FA001DD2D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37808A2C20B5CB5F00E3F025 /* WYWebProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WYWebProgressLayer.h; sourceTree = "<group>"; };
 		37808A2D20B5CB5F00E3F025 /* WYWebProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYWebProgressLayer.m; sourceTree = "<group>"; };
 		37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWebProgressLayer.m; sourceTree = "<group>"; };
@@ -169,6 +168,7 @@
 		37808A3320B5CB6100E3F025 /* WYWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WYWebController.m; sourceTree = "<group>"; };
 		37808A3420B5CB6100E3F025 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		37808A3520B5CB6200E3F025 /* NSTimer+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+addition.h"; sourceTree = "<group>"; };
+		3789443F21749EF80011B6DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37A8BCDB20BC53FA0032B253 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		37C1486A20BD2427002B8A65 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -466,9 +466,9 @@
 				3771686720A31AFD001DD2D5 /* AppDelegate.m */,
 				3771686920A31AFD001DD2D5 /* ViewController.h */,
 				3771686A20A31AFD001DD2D5 /* ViewController.m */,
+				3789443F21749EF80011B6DC /* Assets.xcassets */,
 				3771686C20A31AFD001DD2D5 /* Main.storyboard */,
 				3771687120A31AFD001DD2D5 /* LaunchScreen.storyboard */,
-				3771688920A325FA001DD2D5 /* Assets.xcassets */,
 				3771687420A31AFD001DD2D5 /* Info.plist */,
 				3771687520A31AFD001DD2D5 /* main.m */,
 				374C07C520DA3E7200B3661A /* GankPCH.pch */,
@@ -536,10 +536,10 @@
 				37808A3420B5CB6100E3F025 /* UIView+Frame.h */,
 				37808A3220B5CB6000E3F025 /* UIView+Frame.m */,
 				37808A3120B5CB6000E3F025 /* WLWebProgressLayer.h */,
-				37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */,
 				37808A2F20B5CB6000E3F025 /* WYWebController.h */,
 				37808A3320B5CB6100E3F025 /* WYWebController.m */,
 				37808A2C20B5CB5F00E3F025 /* WYWebProgressLayer.h */,
+				37808A2E20B5CB5F00E3F025 /* WLWebProgressLayer.m */,
 				37808A2D20B5CB5F00E3F025 /* WYWebProgressLayer.m */,
 			);
 			path = webview;
@@ -600,7 +600,6 @@
 				3771686020A31AFD001DD2D5 /* Frameworks */,
 				3771686120A31AFD001DD2D5 /* Resources */,
 				0F8B414F3563A116289B973E /* [CP] Embed Pods Frameworks */,
-				02F81BC5DE69D546C4FF17F1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -650,8 +649,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3771687320A31AFD001DD2D5 /* LaunchScreen.storyboard in Resources */,
-				3771688A20A325FA001DD2D5 /* Assets.xcassets in Resources */,
 				37C1E9E720D270F6006C0E0A /* updateBuild.plist in Resources */,
+				3789444021749EF80011B6DC /* Assets.xcassets in Resources */,
 				3771686E20A31AFD001DD2D5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,28 +658,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		02F81BC5DE69D546C4FF17F1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GankIOS/Pods-GankIOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0F8B414F3563A116289B973E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GankIOS/Pods-GankIOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GankIOS/Pods-GankIOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
@@ -713,7 +697,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GankIOS/Pods-GankIOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GankIOS/Pods-GankIOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D45D89EB2C1CA9EE839B7E10 /* [CP] Check Pods Manifest.lock */ = {

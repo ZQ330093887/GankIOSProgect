@@ -26,9 +26,9 @@
 - (void)initView{
     _titleView = [[UIView alloc]init];
     //头部背景
-    _headImage = [[UIImageView alloc]init];
-    _headImage.image = [UIImage imageNamed:@"notification_bg"];
-    [_titleView addSubview:_headImage];
+//    _headImage = [[UIImageView alloc]init];
+//    _headImage.image = [UIImage imageNamed:@"notification_bg"];
+//    [_titleView addSubview:_headImage];
     //头部title
     _titleLable = [[UILabel alloc]init];
     _titleLable.text = @"干货推送";
@@ -39,7 +39,7 @@
     _contentLabel.font = Font_14;
     _contentLabel.textColor = [UIColor grayColor];
     //是否推送开关
-    _pushSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-80, 50, 0, 0)];
+    _pushSwitch = [[UISwitch alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-80, 114, 0, 0)];
     _pushSwitch.onTintColor = TintColor;
     _pushSwitch.on = YES;
     //添加事件监听
@@ -50,7 +50,7 @@
     _textLable.text = @"干货推送是利用系统特性解决第三方干货集中营客户端无法拥有原生推送的方案，你可以在这里选择开启或者关闭。你的 iOS 设备可以根据你使用干货集中营的频率和时间智能的安排干货集中营来获取每日更新的干货，并显示在应用图标上。你需要确保以下设置均为正确状态：";
     CGSize titleSize = [_textLable.text sizeWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:22] constrainedToSize:CGSizeMake(self.view.frame.size.width-40, 200)];
     //设置frame
-    _textLable.frame = CGRectMake(20, 135, SCREEN_WIDTH-40, titleSize.height);
+    _textLable.frame = CGRectMake(20, 175, SCREEN_WIDTH-40, titleSize.height);
     _textLable.numberOfLines = 0;
     //设置行间距
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:_textLable.text];
@@ -64,7 +64,7 @@
     _nextLable.font = [UIFont systemFontOfSize:14];
     CGSize size = [_nextLable.text sizeWithFont:[UIFont fontWithName:@"Helvetica-Bold" size:24] constrainedToSize:CGSizeMake(SCREEN_WIDTH-40, 200)];
     //设置frame
-    _nextLable.frame = CGRectMake(20, _textLable.frame.size.height+110, SCREEN_WIDTH-40, size.height);
+    _nextLable.frame = CGRectMake(20, _textLable.frame.size.height+130, SCREEN_WIDTH-40, size.height);
     _nextLable.numberOfLines = 0;
    
     NSMutableAttributedString *attributed = [[NSMutableAttributedString alloc] initWithString:_nextLable.text];
@@ -82,23 +82,23 @@
     [self.view addSubview:_nextLable];
 
     [_titleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view.mas_top).offset(130);
+        make.left.right.mas_equalTo(self.view);
+        make.top.equalTo(self.view.mas_top).offset(64);
+        make.height.equalTo(@130);
     }];
-    
-    [_headImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view.mas_top).offset(130);
-    }];
+//
+//    [_headImage mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(_titleView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
+//    }];
 
     [_titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(self.view).offset(40);
-        make.right.mas_equalTo(self.view.mas_right).offset(-80);
-        make.bottom.mas_equalTo(self.view.mas_top).offset(70);
+        make.left.mas_equalTo(_titleView).offset(20);
+        make.right.mas_equalTo(_titleView.mas_right).offset(-80);
+        make.bottom.mas_equalTo(_titleView.mas_top).offset(70);
     }];
 
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).offset(40);
+        make.left.mas_equalTo(self.view).offset(20);
         make.top.mas_equalTo(_titleLable.mas_bottom);
         make.right.mas_equalTo(self.view.mas_right).offset(-80);
         make.bottom.mas_equalTo(_titleLable.mas_bottom).offset(30);

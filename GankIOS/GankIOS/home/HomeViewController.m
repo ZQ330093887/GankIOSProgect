@@ -41,13 +41,30 @@ static NSString* const cellID = @"cellID";
     [self showTextDialog:@"加载中..."];
     //加载数据
     [self getNetworkData:YES getDay:[self getDateToday]];
-    self.view.backgroundColor = [UIColor grayColor];
+//    self.view.backgroundColor = [UIColor grayColor];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self showTabBar];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
+    UIColor *color = TintColor;
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes = dict;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = TintColor;
+    self.navigationController.navigationBar.translucent = YES;
+    UIColor *color = [UIColor whiteColor];
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.titleTextAttributes = dict;
 }
 
 -(void) initView{
@@ -91,13 +108,15 @@ static NSString* const cellID = @"cellID";
 -(void) initBarItem{
     UIBarButtonItem *rightNew = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_new_normal"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
     
-    UIBarButtonItem *rightCalendar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_calendar"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectCanendarAction:)];
+    UIBarButtonItem *rightCalendar = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"new_calendar"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectCanendarAction:)];
     NSArray *arr = [[NSArray alloc]initWithObjects:rightCalendar, rightNew,nil];
     self.navigationItem.rightBarButtonItems = arr;
     //设置导航栏的背景
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_nav_bg"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_nav_bg"] forBarMetrics:UIBarMetricsDefault];
     //修改标题的字体大小和颜色
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+//    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 -(NSString *) getMonthAndDay: (NSString*)timeStr :(NSInteger)type{

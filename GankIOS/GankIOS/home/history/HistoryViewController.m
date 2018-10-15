@@ -31,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initBarItem];
     [self addLeftButton];
     [self hideTabBar];
     
@@ -39,6 +40,16 @@
     [self showTextDialog:@"加载中..."];
     [self getNetworkData];
     // Do any additional setup after loading the view.
+}
+
+//顶部导航栏
+-(void) initBarItem{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_search"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
+    //设置导航栏的背景
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_nav_bg"] forBarMetrics:UIBarMetricsDefault];
+    //修改标题的字体大小和颜色
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = TintColor;
 }
 
 //初始化日历
@@ -67,10 +78,10 @@
 }
 
 - (void)loadView{
-    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight, SCREEN_WIDTH, SCREEN_HEIGHT)];
     view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.view = view;
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0,  0, self.view.frame.size.width, 450)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0,  SafeAreaTopHeight, self.view.frame.size.width, 450)];
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.swipeToChooseGesture.enabled = YES;

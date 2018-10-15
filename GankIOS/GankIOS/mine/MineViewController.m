@@ -47,9 +47,10 @@ static NSString* const cellID = @"cellID";
 //    self.navigationItem.rightBarButtonItem = rightButton;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"ic_nav_add"] imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] style:(UIBarButtonItemStylePlain) target:self action:@selector(selectRightAction:)];
     //设置导航栏的背景
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_nav_bg"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"ic_nav_bg"] forBarMetrics:UIBarMetricsDefault];
     //修改标题的字体大小和颜色
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = TintColor;
 }
 
 /** 加载图片(本地) */
@@ -84,6 +85,7 @@ static NSString* const cellID = @"cellID";
 
 /*************正文****************/
 - (void) initView{
+    
     self.view.backgroundColor = PullDownColor;
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, SCREEN_HEIGHT)];
     scrollView.backgroundColor = [UIColor whiteColor];
