@@ -1,18 +1,18 @@
 PODS:
-  - AFNetworking (3.2.0):
-    - AFNetworking/NSURLSession (= 3.2.0)
-    - AFNetworking/Reachability (= 3.2.0)
-    - AFNetworking/Security (= 3.2.0)
-    - AFNetworking/Serialization (= 3.2.0)
-    - AFNetworking/UIKit (= 3.2.0)
-  - AFNetworking/NSURLSession (3.2.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.0)
-  - AFNetworking/Security (3.2.0)
-  - AFNetworking/Serialization (3.2.0)
-  - AFNetworking/UIKit (3.2.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - DACircularProgress (2.3.1)
   - FSCalendar (2.7.9)
@@ -62,7 +62,7 @@ SPEC REPOS:
     - "UITableView+FDTemplateLayoutCell"
 
 SPEC CHECKSUMS:
-  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
   IQKeyboardManager: 0bfa4607d39924116b5c0c8b55b5d789288b5cba

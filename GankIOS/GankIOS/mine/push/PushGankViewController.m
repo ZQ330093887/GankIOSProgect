@@ -14,7 +14,12 @@
 @end
 
 @implementation PushGankViewController
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.barTintColor = TintColor;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLeftButton];

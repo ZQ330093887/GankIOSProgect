@@ -40,6 +40,7 @@ static NSString* const cellID = @"cellID";
 }
 
 -(void) initView{
+    
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
     [self.mainTableView registerClass:[CaneryCell class] forCellReuseIdentifier:cellID];

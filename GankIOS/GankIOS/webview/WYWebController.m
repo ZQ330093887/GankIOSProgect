@@ -15,11 +15,17 @@
 
 @end
 
-@implementation WYWebController
-{
+@implementation WYWebController{
     UIWebView *_webView;
     
     WYWebProgressLayer *_progressLayer; ///< 网页加载进度条
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.barTintColor = TintColor;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
 
 - (void)viewDidLoad {

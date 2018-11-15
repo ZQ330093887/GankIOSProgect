@@ -20,6 +20,12 @@
 static NSString* const cellID = @"cellID";
 
 @implementation BuildUpdateViewController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.navigationController.navigationBar.barTintColor = TintColor;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +47,7 @@ static NSString* const cellID = @"cellID";
     UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-60, 300)];
 //    footView.backgroundColor = [UIColor greenColor];
     UIImageView *footImage = [[UIImageView alloc]init];
+  
     footImage.image = [UIImage imageNamed:@"smile"];
     //创建一个脚Label
     UILabel * footerLabel = [[UILabel alloc] init];
