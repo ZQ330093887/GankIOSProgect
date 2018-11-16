@@ -116,7 +116,7 @@
 
 - (void) initTabView{
 
-    UIView *aboutView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
+    UIView *aboutView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, SCREEN_WIDTH, 200)];
     //设置图片属性
     UIImageView *logoImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
     logoImg.center = CGPointMake(aboutView.frame.size.width/2 , aboutView.frame.size.height/2 - logoImg.frame.size.height/4);

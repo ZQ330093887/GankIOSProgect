@@ -16,7 +16,7 @@
 #import "MBProgressHUD.h"
 #import "MJRefresh.h"
 #import "UIImageView+WebCache.h"
-#import "STPhotoBroswer.h"
+#import "WMPhotoBrowser.h"
 #import "WYWebController.h"
 #import "HistoryViewController.h"
 @interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -389,9 +389,11 @@ static NSString* const cellID = @"cellID";
     for (BookVO *vo in self.imag) {
         [photoURLArray addObject:vo.url];
     }
-
-    STPhotoBroswer * broser = [[STPhotoBroswer alloc] initWithImageArray:photoURLArray currentIndex:0];
-    [broser show];
+    
+    WMPhotoBrowser *browser = [WMPhotoBrowser new];
+    browser.dataSource = photoURLArray;
+     browser.downLoadNeeded = YES;
+    [self.navigationController pushViewController:browser animated:YES];
 }
 
 

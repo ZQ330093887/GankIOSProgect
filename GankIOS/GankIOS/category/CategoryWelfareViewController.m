@@ -14,9 +14,7 @@
 #import "BookVO.h"
 #import "BaseVO.h"
 #import "MBProgressHUD.h"
-
-#import "STImageVIew.h"
-#import "STPhotoBroswer.h"
+#import "WMPhotoBrowser.h"
 
 @interface CategoryWelfareViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 @property (nonatomic,strong) NSMutableArray *welfareArray;//数据存储
@@ -44,8 +42,11 @@ static NSString* const cellID = @"cellID";
         [photoURLArray addObject:meizi.url];
     }
     
-    STPhotoBroswer * broser = [[STPhotoBroswer alloc] initWithImageArray:photoURLArray currentIndex:indexPath.row];
-    [broser show];
+    WMPhotoBrowser *browser = [WMPhotoBrowser new];
+    browser.dataSource = photoURLArray;
+    browser.currentPhotoIndex = indexPath.row;
+    browser.downLoadNeeded = YES;
+    [self.navigationController pushViewController:browser animated:YES];
 }
 
 -(void) initView{
