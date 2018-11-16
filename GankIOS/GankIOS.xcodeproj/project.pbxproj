@@ -427,23 +427,23 @@
 			children = (
 				370436B4219D17EF0017D631 /* feedback */,
 				374C07B620D9EB0900B3661A /* share */,
-				37C1E9DC20D26095006C0E0A /* updatebuild */,
+				37C1E9DC20D26095006C0E0A /* update */,
 				3762731B20CE6840001EAFB6 /* push */,
 				37FB0B8520A6CB2A00A2530F /* login */,
-				372D429920A443810022875A /* about */,
+				372D429920A443810022875A /* setting */,
 				372D429620A3E6B50022875A /* MineViewController.h */,
 				372D429720A3E6B50022875A /* MineViewController.m */,
 			);
 			path = mine;
 			sourceTree = "<group>";
 		};
-		372D429920A443810022875A /* about */ = {
+		372D429920A443810022875A /* setting */ = {
 			isa = PBXGroup;
 			children = (
 				372D429A20A443910022875A /* AboutViewController.h */,
 				372D429B20A443910022875A /* AboutViewController.m */,
 			);
-			path = about;
+			path = setting;
 			sourceTree = "<group>";
 		};
 		374C07B620D9EB0900B3661A /* share */ = {
@@ -652,14 +652,14 @@
 			path = base;
 			sourceTree = "<group>";
 		};
-		37C1E9DC20D26095006C0E0A /* updatebuild */ = {
+		37C1E9DC20D26095006C0E0A /* update */ = {
 			isa = PBXGroup;
 			children = (
 				37C1E9DD20D260BD006C0E0A /* BuildUpdateViewController.h */,
 				37C1E9DE20D260BD006C0E0A /* BuildUpdateViewController.m */,
 				37C1E9E620D270F6006C0E0A /* updateBuild.plist */,
 			);
-			path = updatebuild;
+			path = update;
 			sourceTree = "<group>";
 		};
 		37E8DC7320B5BE3A00185B3D /* webview */ = {

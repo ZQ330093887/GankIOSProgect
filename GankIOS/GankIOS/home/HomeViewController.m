@@ -83,6 +83,9 @@ static NSString* const cellID = @"cellID";
     //头部日期
     UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-95, 520-40, 74, 74)];
     dataView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"date_bg"]];
+    dataView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *gst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dataViewTop:)];
+    [dataView addGestureRecognizer:gst];
     
     _d = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 74, 30)];
     _d.font = [UIFont systemFontOfSize:24];
@@ -297,11 +300,7 @@ static NSString* const cellID = @"cellID";
 }
 //导航栏日历点击事件
 -(void)selectCanendarAction:(id)sender{
-    HistoryViewController *hConteroller = [HistoryViewController new];
-    // 将代理对象设置成SecondViewController
-    hConteroller.delegate = self;
-    hConteroller.mTitle = @"历史的车轮";
-    [self.navigationController pushViewController:hConteroller animated:YES];
+    [self pushViewConteroller];
 }
 
 // 实现协议里面的方法(返回值回调)
@@ -394,6 +393,20 @@ static NSString* const cellID = @"cellID";
     browser.dataSource = photoURLArray;
      browser.downLoadNeeded = YES;
     [self.navigationController pushViewController:browser animated:YES];
+}
+
+//头部右下方圆形白色日历点击事件
+-(void)dataViewTop:(UITapGestureRecognizer *)gst{
+    [self pushViewConteroller];
+}
+
+//跳转到日历界面
+-(void) pushViewConteroller{
+    HistoryViewController *hConteroller = [HistoryViewController new];
+    // 将代理对象设置成SecondViewController
+    hConteroller.delegate = self;
+    hConteroller.mTitle = @"历史的车轮";
+    [self.navigationController pushViewController:hConteroller animated:YES];
 }
 
 
