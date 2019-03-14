@@ -7,7 +7,8 @@
 //
 
 #import "HomeViewController.h"
-#import "HomeCell.h"
+#import "CaneryCell.h"
+#import "CommonUtils.h"
 #import "HomeVO.h"
 #import "BookVO.h"
 #import "HomeBase.h"
@@ -25,9 +26,6 @@
 @property (nonatomic,strong) NSMutableArray *categoryArray;//存储类别
 @property (nonatomic,strong) NSMutableDictionary * dictionary;
 
-//获取当前年月日
--(NSString*)getDateToday;
-
 @end
 
 @implementation HomeViewController
@@ -40,7 +38,7 @@ static NSString* const cellID = @"cellID";
     //加载进度条
     [self showTextDialog:@"加载中..."];
     //加载数据
-    [self getNetworkData:YES getDay:[self getDateToday]];
+    [self getNetworkData:YES getDay:[CommonUtils getDataToday]];
 //    self.view.backgroundColor = [UIColor grayColor];
     // Do any additional setup after loading the view.
 }
@@ -70,7 +68,7 @@ static NSString* const cellID = @"cellID";
 -(void) initView{
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
-    [self.mainTableView registerClass:[HomeCell class] forCellReuseIdentifier:cellID];
+    [self.mainTableView registerClass:[CaneryCell class] forCellReuseIdentifier:cellID];
     //头部view
     UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 520)];
     //头部福利图片view
@@ -122,29 +120,6 @@ static NSString* const cellID = @"cellID";
 //    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
--(NSString *) getMonthAndDay: (NSString*)timeStr :(NSInteger)type{
-
-    NSString * time =@"";
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //输入格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-    NSTimeZone *localTimeZone = [NSTimeZone localTimeZone];
-    [dateFormatter setTimeZone:localTimeZone];
-    NSDate *date = [dateFormatter dateFromString:timeStr];
-    NSCalendar *caldendar = [NSCalendar currentCalendar];// 获取日历
-    if (date !=nil) {
-        NSInteger month = [caldendar component:NSCalendarUnitMonth fromDate:date];
-        NSInteger day = [caldendar component:NSCalendarUnitDay fromDate:date];
-        NSArray *monthArr = [NSArray arrayWithArray:caldendar.shortMonthSymbols];  // 获取日历月数组
-        if (type==0) {//返回月
-            time =  monthArr[month - 1];
-        }else if (type ==1){//返回日
-            time =  [NSString stringWithFormat:@"%ld",day];;
-        }
-    }
-    return time;
-}
-
 -(NSMutableArray *)categoryArray{
     if (!_categoryArray) {
         _categoryArray = [NSMutableArray arrayWithCapacity:0];
@@ -167,7 +142,7 @@ static NSString* const cellID = @"cellID";
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    CaneryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     NSUInteger index = indexPath.row;
     
@@ -175,7 +150,7 @@ static NSString* const cellID = @"cellID";
         if ([key isEqualToString:self.categoryArray[indexPath.section]]) {
             BookVO *book = (BookVO *)[self.dictionary[key] objectAtIndex:index];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.homeData =book;
+            cell.book =book;
         }
     }
 
@@ -184,7 +159,7 @@ static NSString* const cellID = @"cellID";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 95;
+    return 105;
 }
 
 //返回表格分区数，默认返回1
@@ -296,7 +271,7 @@ static NSString* const cellID = @"cellID";
 //导航栏刷新点击事件
 -(void)selectRightAction:(id)sender{
     [self showTextDialog:@"更新中..."];
-    [self getNetworkData:YES getDay:[self getDateToday]];
+    [self getNetworkData:YES getDay:[CommonUtils getDataToday]];
 }
 //导航栏日历点击事件
 -(void)selectCanendarAction:(id)sender{
@@ -306,16 +281,6 @@ static NSString* const cellID = @"cellID";
 // 实现协议里面的方法(返回值回调)
 - (void)showViewGiveValue:(NSString *)text{
     [self getNetworkData:NO getDay:text];
-}
-
--(NSString *)getDateToday{
-    NSDate *date = [NSDate date]; // 获得时间对象
-    NSDateFormatter *forMatter = [[NSDateFormatter alloc] init];
-    [forMatter setDateFormat:@"yyyy/MM/dd"];//这里设置自己想要的时间
-    NSString *dateStr = [forMatter stringFromDate:date];
-    
-    NSLog(@"当前年月日%@",dateStr);
-    return dateStr;
 }
 
 //设置数据
@@ -361,9 +326,8 @@ static NSString* const cellID = @"cellID";
             [self.imag addObjectsFromArray:homeData.wetify];
             for (BookVO *b in homeData.wetify) {
                 [_imageView sd_setImageWithURL:[NSURL URLWithString:b.url] placeholderImage:[UIImage imageNamed:@"logo"]];
-                self.m.text = [self getMonthAndDay:b.publishedAt :0];
-                self.d.text = [self getMonthAndDay:b.publishedAt :1];
-
+                self.m.text = [CommonUtils getMonthAndDay:b.publishedAt :0];
+                self.d.text = [CommonUtils getMonthAndDay:b.publishedAt :1];
             }
         }
     }

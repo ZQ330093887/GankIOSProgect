@@ -47,6 +47,7 @@
 		374C07B920D9EB2000B3661A /* ShareMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 374C07B820D9EB2000B3661A /* ShareMenuView.m */; };
 		374C07C220DA099F00B3661A /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 374C07C120DA099F00B3661A /* UIColor+Hex.m */; };
 		3762731E20CE6854001EAFB6 /* PushGankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3762731D20CE6854001EAFB6 /* PushGankViewController.m */; };
+		37638A792239FCEF003C01A5 /* CommonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 37638A782239FCEF003C01A5 /* CommonUtils.m */; };
 		3770F50320AC2474007EAA06 /* CaneryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3770F50220AC2474007EAA06 /* CaneryCell.m */; };
 		3771686820A31AFD001DD2D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771686720A31AFD001DD2D5 /* AppDelegate.m */; };
 		3771686B20A31AFD001DD2D5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3771686A20A31AFD001DD2D5 /* ViewController.m */; };
@@ -75,7 +76,6 @@
 		37C1E9E220D268D3006C0E0A /* BuildUpdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9E120D268D3006C0E0A /* BuildUpdateCell.m */; };
 		37C1E9E520D26A46006C0E0A /* BuildInfoVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9E420D26A46006C0E0A /* BuildInfoVO.m */; };
 		37C1E9E720D270F6006C0E0A /* updateBuild.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37C1E9E620D270F6006C0E0A /* updateBuild.plist */; };
-		37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD7E20AFE4E400BD987B /* HomeCell.m */; };
 		37D1CD8220AFE53C00BD987B /* HomeVO.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8120AFE53C00BD987B /* HomeVO.m */; };
 		37D1CD8520AFEC4B00BD987B /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D1CD8420AFEC4B00BD987B /* HomeBase.m */; };
 		37F6A26F20A9DD360061FD50 /* CategoryListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F6A26E20A9DD360061FD50 /* CategoryListViewController.m */; };
@@ -169,6 +169,8 @@
 		374C07C520DA3E7200B3661A /* GankPCH.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GankPCH.pch; sourceTree = "<group>"; };
 		3762731C20CE6854001EAFB6 /* PushGankViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushGankViewController.h; sourceTree = "<group>"; };
 		3762731D20CE6854001EAFB6 /* PushGankViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushGankViewController.m; sourceTree = "<group>"; };
+		37638A772239FCEF003C01A5 /* CommonUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonUtils.h; sourceTree = "<group>"; };
+		37638A782239FCEF003C01A5 /* CommonUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonUtils.m; sourceTree = "<group>"; };
 		3770F50120AC2474007EAA06 /* CaneryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaneryCell.h; sourceTree = "<group>"; };
 		3770F50220AC2474007EAA06 /* CaneryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaneryCell.m; sourceTree = "<group>"; };
 		3771686320A31AFD001DD2D5 /* GankIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GankIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,8 +224,6 @@
 		37C1E9E320D26A46006C0E0A /* BuildInfoVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuildInfoVO.h; sourceTree = "<group>"; };
 		37C1E9E420D26A46006C0E0A /* BuildInfoVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuildInfoVO.m; sourceTree = "<group>"; };
 		37C1E9E620D270F6006C0E0A /* updateBuild.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = updateBuild.plist; sourceTree = "<group>"; };
-		37D1CD7D20AFE4E400BD987B /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
-		37D1CD7E20AFE4E400BD987B /* HomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		37D1CD8020AFE53C00BD987B /* HomeVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeVO.h; sourceTree = "<group>"; };
 		37D1CD8120AFE53C00BD987B /* HomeVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVO.m; sourceTree = "<group>"; };
 		37D1CD8320AFEC4B00BD987B /* HomeBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeBase.h; sourceTree = "<group>"; };
@@ -300,6 +300,8 @@
 			children = (
 				371157AD219E751900B08661 /* ToastUtils.h */,
 				371157AE219E751900B08661 /* ToastUtils.m */,
+				37638A772239FCEF003C01A5 /* CommonUtils.h */,
+				37638A782239FCEF003C01A5 /* CommonUtils.m */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -488,8 +490,6 @@
 				3770F50220AC2474007EAA06 /* CaneryCell.m */,
 				370A216920AD8D6600973F48 /* WelfareCollViewCell.h */,
 				370A216A20AD8D6600973F48 /* WelfareCollViewCell.m */,
-				37D1CD7D20AFE4E400BD987B /* HomeCell.h */,
-				37D1CD7E20AFE4E400BD987B /* HomeCell.m */,
 				37C1E9E020D268D2006C0E0A /* BuildUpdateCell.h */,
 				37C1E9E120D268D3006C0E0A /* BuildUpdateCell.m */,
 				373F8D8D2195875200B9DF36 /* UserInfoHeaderView.h */,
@@ -905,7 +905,6 @@
 				370A216B20AD8D6600973F48 /* WelfareCollViewCell.m in Sources */,
 				37D1CD8220AFE53C00BD987B /* HomeVO.m in Sources */,
 				37808A3820B5CB6200E3F025 /* NSTimer+addition.m in Sources */,
-				37D1CD7F20AFE4E400BD987B /* HomeCell.m in Sources */,
 				372413F0213AF9BD00F31961 /* JXCategoryTitleCellModel.m in Sources */,
 				370436CF219D85AC0017D631 /* WMCollectionViewFlowLayout.m in Sources */,
 				37241401213AF9BD00F31961 /* JXCategoryBaseView.m in Sources */,
@@ -913,6 +912,7 @@
 				372413F3213AF9BD00F31961 /* JXCategoryComponentCell.m in Sources */,
 				370436D5219D87180017D631 /* UIView+WMFrame.m in Sources */,
 				372D429820A3E6B50022875A /* MineViewController.m in Sources */,
+				37638A792239FCEF003C01A5 /* CommonUtils.m in Sources */,
 				37ABBFCE219591D50018427B /* XBSettingSectionModel.m in Sources */,
 				37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */,
 				371157AF219E751900B08661 /* ToastUtils.m in Sources */,
