@@ -66,6 +66,7 @@ static NSString* const cellID = @"cellID";
 }
 
 -(void) initView{
+    self.mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
     [self.mainTableView registerClass:[CaneryCell class] forCellReuseIdentifier:cellID];
@@ -102,7 +103,6 @@ static NSString* const cellID = @"cellID";
     _footerLabel.textColor= [UIColor grayColor];
     _footerLabel.textAlignment  = NSTextAlignmentCenter;
     self.mainTableView.tableFooterView = _footerLabel;
-    
     [self.view addSubview:self.mainTableView];
 }
 

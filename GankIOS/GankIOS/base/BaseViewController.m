@@ -79,7 +79,7 @@
 }
 
 //创建刷新
--(void) createTableViewRefresh{
+-(void) createTableViewRefresh:(BOOL) isLoadingMore{
     //刷新
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _page = 1;
@@ -94,9 +94,11 @@
     
     self.mainTableView.mj_header = header;
     //加载
-    self.mainTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        self.loadingData(NO);
-    }];
+    if (isLoadingMore) {
+        self.mainTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            self.loadingData(NO);
+        }];
+    }
 }
 
 //停止刷新
@@ -186,7 +188,7 @@
 //懒加载
 -(UITableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width,  [UIScreen mainScreen].bounds.size.height) style:UITableViewStylePlain];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT -SafeAreaTopHeight -44 -45 - SafeAreaBottomSpaceHeight ) style:UITableViewStylePlain];
         [self.view addSubview:_mainTableView];
         
     }

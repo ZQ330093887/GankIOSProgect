@@ -48,7 +48,7 @@ static NSString* const cellID = @"cellID";
     
     // 防止 block  循环 引用
     __weak typeof(self) WeakSelf = self;
-    [self createTableViewRefresh];
+    [self createTableViewRefresh:true];
     //刷新或者加载
     self.loadingData = ^(BOOL isRefresh) {
         if (isRefresh) {

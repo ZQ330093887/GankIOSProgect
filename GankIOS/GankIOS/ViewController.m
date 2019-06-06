@@ -10,6 +10,7 @@
 #import "HomeViewController.h"
 #import "CategoryViewController.h"
 #import "MineViewController.h"
+#import "HgMusicViewController.h"
 
 @interface ViewController ()
 
@@ -58,6 +59,18 @@
      selectedTitleColor:TintColor
             normalImage:@"ic_nav_category_normal"
        normalTitleColor:[UIColor grayColor]];
+    
+    //音乐
+    HgMusicViewController *musicController=[[HgMusicViewController alloc] init];
+    musicController.title = @"音乐";
+    [self setTabBarItem:musicController.tabBarItem
+                  title:@"音乐"
+              titleSize:11.0
+          titleFontName:@"HeiTi SC"
+          selectedImage:@"music_action"
+     selectedTitleColor:TintColor
+            normalImage:@"music_selected"
+       normalTitleColor:[UIColor grayColor]];
     //我的
     
     MineViewController *mineConteroller = [[MineViewController alloc]init];
@@ -74,9 +87,10 @@
     /***********************创建Navigation******************/
     UINavigationController *homeNV = [[UINavigationController alloc] initWithRootViewController:homeController];
     UINavigationController *categoryNV = [[UINavigationController alloc] initWithRootViewController:categoryController];
+    UINavigationController *musicNV = [[UINavigationController alloc] initWithRootViewController:musicController];
     UINavigationController *mineNV = [[UINavigationController alloc]initWithRootViewController:mineConteroller];
     // 把子控制器添加到UITabBarController
-    self.viewControllers = @[homeNV, categoryNV,mineNV];
+    self.viewControllers = @[homeNV, categoryNV, musicNV, mineNV];
 }
 
 - (void)setTabBarItem:(UITabBarItem *)tabbarItem

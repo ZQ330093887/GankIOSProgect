@@ -12,7 +12,7 @@
 
 
 // 创建tabView  上拉 下拉 刷新
--(void)createTableViewRefresh;
+-(void)createTableViewRefresh:(BOOL) isLoadingMore;
 //完成
 -(void)endTableViewRefresh;
 
@@ -51,6 +51,9 @@
 @property (nonatomic,strong) UICollectionView *collectionView;
 //标题
 @property(nonatomic,retain) NSString * mTitle ;
+
+
+
 
 -(void) showTabBar;
 -(void) hideTabBar;
