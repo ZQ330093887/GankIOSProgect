@@ -20,11 +20,18 @@
 #import "WMPhotoBrowser.h"
 #import "WYWebController.h"
 #import "HistoryViewController.h"
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "PGCustomBannerView.h"
+#import "NewPagedFlowView.h"
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,NewPagedFlowViewDelegate, NewPagedFlowViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *imag;//数据头部图片存储
 @property (nonatomic,strong) NSMutableArray *categoryArray;//存储类别
 @property (nonatomic,strong) NSMutableDictionary * dictionary;
+
+/**
+ *  轮播图
+ */
+@property (nonatomic, strong) NewPagedFlowView *pageFlowView;
 
 @end
 
@@ -66,35 +73,40 @@ static NSString* const cellID = @"cellID";
 }
 
 -(void) initView{
+   
     self.mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
     [self.mainTableView registerClass:[CaneryCell class] forCellReuseIdentifier:cellID];
     //头部view
-    UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 520)];
-    //头部福利图片view
-    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, headerLable.frame.size.width, headerLable.frame.size.height)];
-    //允许操作
-    _imageView.userInteractionEnabled = YES;
-    //添加手势
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-    [_imageView addGestureRecognizer:singleTap];
-    //头部日期
-    UIView *dataView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-95, 520-40, 74, 74)];
-    dataView.backgroundColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"date_bg"]];
-    dataView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *gst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dataViewTop:)];
-    [dataView addGestureRecognizer:gst];
+    UIView *headerLable = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9 / 16)];
+ 
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    _d = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 74, 30)];
-    _d.font = [UIFont systemFontOfSize:24];
-    _d.textAlignment  = NSTextAlignmentCenter;
-    _m = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, 74, 40)];
-    _m.textAlignment  = NSTextAlignmentCenter;
-    [dataView addSubview:_m];
-    [dataView addSubview:_d];
-    [headerLable addSubview:_imageView];
-    [headerLable addSubview:dataView];
+    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9 / 16)];
+    pageFlowView.backgroundColor = [UIColor whiteColor];
+    pageFlowView.delegate = self;
+    pageFlowView.dataSource = self;
+    pageFlowView.minimumPageAlpha = 0.4;
+    
+    #warning 假设产品需求左右卡片间距30,底部对齐
+    pageFlowView.leftRightMargin = 30;
+    pageFlowView.topBottomMargin = 0;
+    
+    pageFlowView.orginPageCount = self.imag.count;
+    pageFlowView.isOpenAutoScroll = YES;
+    
+    //初始化pageControl
+    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, pageFlowView.frame.size.height - 24, SCREEN_WIDTH, 8)];
+    pageFlowView.pageControl = pageControl;
+    [pageFlowView addSubview:pageControl];
+    [pageFlowView reloadData];
+    [headerLable addSubview:pageFlowView];
+    
+    
+    self.pageFlowView = pageFlowView;
+    
+
     self.mainTableView.tableHeaderView = headerLable;
     
     //创建一个脚Label
@@ -230,7 +242,6 @@ static NSString* const cellID = @"cellID";
                     NSLog(@"开始*************");
                     isDef = [homeData.Android isEqual: homeCache.Android];
                 }
-                
                 if (!isDef) {
                     [WeakSelf writeLocalCacheData:mData withKey:baseUrl];
                     NSLog(@"结束*************");
@@ -255,6 +266,7 @@ static NSString* const cellID = @"cellID";
         
         WeakSelf.footerLabel.text = @"----感谢所有默认付出的编辑们，愿大家都有美好的一天----";
         //刷新数据
+        [WeakSelf.pageFlowView reloadData];
         [WeakSelf.mainTableView reloadData];
     };
 }
@@ -324,11 +336,6 @@ static NSString* const cellID = @"cellID";
             [self.dictionary setValue:homeData.html  forKey:category];
         }else if([category isEqualToString:@"福利"]){
             [self.imag addObjectsFromArray:homeData.wetify];
-            for (BookVO *b in homeData.wetify) {
-                [_imageView sd_setImageWithURL:[NSURL URLWithString:b.url] placeholderImage:[UIImage imageNamed:@"logo"]];
-                self.m.text = [CommonUtils getMonthAndDay:b.publishedAt :0];
-                self.d.text = [CommonUtils getMonthAndDay:b.publishedAt :1];
-            }
         }
     }
 }
@@ -346,19 +353,6 @@ static NSString* const cellID = @"cellID";
     }
 }
 
-//头部图片的点击事件
-- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {
-    NSMutableArray *photoURLArray = [NSMutableArray array];
-    for (BookVO *vo in self.imag) {
-        [photoURLArray addObject:vo.url];
-    }
-    
-    WMPhotoBrowser *browser = [WMPhotoBrowser new];
-    browser.dataSource = photoURLArray;
-     browser.downLoadNeeded = YES;
-    [self.navigationController pushViewController:browser animated:YES];
-}
-
 //头部右下方圆形白色日历点击事件
 -(void)dataViewTop:(UITapGestureRecognizer *)gst{
     [self pushViewConteroller];
@@ -371,6 +365,81 @@ static NSString* const cellID = @"cellID";
     hConteroller.delegate = self;
     hConteroller.mTitle = @"历史的车轮";
     [self.navigationController pushViewController:hConteroller animated:YES];
+}
+
+- (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
+    
+    NSLog(@"点击了第%ld张图",(long)subIndex + 1);
+    
+    NSMutableArray *photoURLArray = [NSMutableArray array];
+    
+    for (BookVO *vo in self.imag) {
+        [photoURLArray addObject:vo.url];
+    }
+    
+    WMPhotoBrowser *browser = [WMPhotoBrowser new];
+    browser.dataSource = photoURLArray;
+    browser.downLoadNeeded = YES;
+    [self.navigationController pushViewController:browser animated:YES];
+}
+
+- (void)didScrollToPage:(NSInteger)pageNumber inFlowView:(NewPagedFlowView *)flowView {
+    
+   
+    NSLog(@"CustomViewController 滚动到了第%ld页",pageNumber);
+}
+
+#warning 假设产品需求左右中间页显示大小为 Width - 50, (Width - 50) * 9 / 16
+- (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
+    return CGSizeMake(SCREEN_WIDTH - 50, (SCREEN_WIDTH - 50) * 9 / 16);
+}
+
+#pragma mark --NewPagedFlowView Datasource
+- (NSInteger)numberOfPagesInFlowView:(NewPagedFlowView *)flowView {
+    
+    return self.imag.count;
+}
+
+
+- (PGIndexBannerSubiew *)flowView:(NewPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index{
+    
+    PGCustomBannerView *bannerView = (PGCustomBannerView *)[flowView dequeueReusableCell];
+    if (!bannerView) {
+        bannerView = [[PGCustomBannerView alloc] init];
+        bannerView.layer.cornerRadius = 4;
+        bannerView.layer.masksToBounds = YES;
+    }
+    
+    BookVO *b =  self.imag[index];
+    //在这里下载网络图片
+    [bannerView.mainImageView sd_setImageWithURL:[NSURL URLWithString:b.url] placeholderImage:[UIImage imageNamed:@"logo"]];
+    
+//    bannerView.mainImageView.image = self.imag[index];
+//    bannerView.indexLabel.text = [NSString stringWithFormat:@"第%ld张图",(long)index + 1];
+    
+    bannerView.indexLabel.hidden = YES;
+    return bannerView;
+}
+
+#pragma mark --旋转屏幕改变newPageFlowView大小之后实现该方法
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator {
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+    {
+        [coordinator animateAlongsideTransition:^(id context) {
+            [self.pageFlowView reloadData];
+        } completion:NULL];
+    }
+}
+
+#pragma mark --滚动到指定的页数
+- (void)gotoPage {
+    
+    //产生跳转的随机数
+    int value = arc4random() % self.imag.count;
+    NSLog(@"value~~%d",value);
+    
+    [self.pageFlowView scrollToPage:value];
 }
 
 

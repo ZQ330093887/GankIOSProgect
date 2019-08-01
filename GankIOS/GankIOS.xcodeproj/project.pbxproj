@@ -91,6 +91,7 @@
 		37808A3920B5CB6200E3F025 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3220B5CB6000E3F025 /* UIView+Frame.m */; };
 		37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37808A3320B5CB6100E3F025 /* WYWebController.m */; };
 		3789444021749EF80011B6DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3789443F21749EF80011B6DC /* Assets.xcassets */; };
+		3791B09622D33E67008FCDDB /* PGIndexBannerSubiew.m in Sources */ = {isa = PBXBuildFile; fileRef = 3791B09422D33E67008FCDDB /* PGIndexBannerSubiew.m */; };
 		37A8BCDD20BC53FA0032B253 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */; };
 		37ABBFB621958CCB0018427B /* UIView+fm.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ABBFB521958CCB0018427B /* UIView+fm.m */; };
 		37ABBFBA2195910C0018427B /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ABBFB82195910C0018427B /* UIView+Frame.m */; };
@@ -100,6 +101,8 @@
 		37ABBFCF219591D50018427B /* XBSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ABBFC8219591D50018427B /* XBSettingCell.m */; };
 		37ABBFD0219591D50018427B /* XBMeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ABBFC9219591D50018427B /* XBMeHeaderView.m */; };
 		37ABBFD1219591D50018427B /* XBMeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37ABBFCA219591D50018427B /* XBMeHeaderView.xib */; };
+		37ACDA0722F296850080131E /* NewPagedFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ACDA0622F296850080131E /* NewPagedFlowView.m */; };
+		37ACDA0A22F297E70080131E /* PGCustomBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ACDA0922F297E70080131E /* PGCustomBannerView.m */; };
 		37C1486C20BD2427002B8A65 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1486B20BD2427002B8A65 /* BaseViewController.m */; };
 		37C1E9DF20D260BD006C0E0A /* BuildUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9DE20D260BD006C0E0A /* BuildUpdateViewController.m */; };
 		37C1E9E220D268D3006C0E0A /* BuildUpdateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C1E9E120D268D3006C0E0A /* BuildUpdateCell.m */; };
@@ -284,6 +287,8 @@
 		37808A3420B5CB6100E3F025 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
 		37808A3520B5CB6200E3F025 /* NSTimer+addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+addition.h"; sourceTree = "<group>"; };
 		3789443F21749EF80011B6DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3791B09422D33E67008FCDDB /* PGIndexBannerSubiew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGIndexBannerSubiew.m; sourceTree = "<group>"; };
+		3791B09522D33E67008FCDDB /* PGIndexBannerSubiew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGIndexBannerSubiew.h; sourceTree = "<group>"; };
 		37A8BCDB20BC53FA0032B253 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		37A8BCDC20BC53FA0032B253 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		37ABBFB421958CCB0018427B /* UIView+fm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+fm.h"; sourceTree = "<group>"; };
@@ -302,6 +307,10 @@
 		37ABBFC9219591D50018427B /* XBMeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBMeHeaderView.m; sourceTree = "<group>"; };
 		37ABBFCA219591D50018427B /* XBMeHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XBMeHeaderView.xib; sourceTree = "<group>"; };
 		37ABBFCB219591D50018427B /* XBSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBSettingCell.h; sourceTree = "<group>"; };
+		37ACDA0522F296850080131E /* NewPagedFlowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewPagedFlowView.h; sourceTree = "<group>"; };
+		37ACDA0622F296850080131E /* NewPagedFlowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewPagedFlowView.m; sourceTree = "<group>"; };
+		37ACDA0822F297E70080131E /* PGCustomBannerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PGCustomBannerView.h; sourceTree = "<group>"; };
+		37ACDA0922F297E70080131E /* PGCustomBannerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PGCustomBannerView.m; sourceTree = "<group>"; };
 		37C1486A20BD2427002B8A65 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		37C1486B20BD2427002B8A65 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		37C1E9DD20D260BD006C0E0A /* BuildUpdateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuildUpdateViewController.h; sourceTree = "<group>"; };
@@ -433,6 +442,7 @@
 		3708DBF320AE6DE500991674 /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				3791B08222D338C4008FCDDB /* banner */,
 				37721A4F22A8C006008404A3 /* ZJScrollPageView */,
 				3703FF3B229414E000092CAF /* TXScrollLabelView */,
 				370436C3219D7FD20017D631 /* photoview */,
@@ -765,6 +775,19 @@
 			path = ZJScrollPageView;
 			sourceTree = "<group>";
 		};
+		3791B08222D338C4008FCDDB /* banner */ = {
+			isa = PBXGroup;
+			children = (
+				3791B09522D33E67008FCDDB /* PGIndexBannerSubiew.h */,
+				3791B09422D33E67008FCDDB /* PGIndexBannerSubiew.m */,
+				37ACDA0522F296850080131E /* NewPagedFlowView.h */,
+				37ACDA0622F296850080131E /* NewPagedFlowView.m */,
+				37ACDA0822F297E70080131E /* PGCustomBannerView.h */,
+				37ACDA0922F297E70080131E /* PGCustomBannerView.m */,
+			);
+			path = banner;
+			sourceTree = "<group>";
+		};
 		37A8BCDA20BC53E00032B253 /* history */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,6 +1104,7 @@
 				370436DB219D8DDF0017D631 /* UIViewController+WMExtension.m in Sources */,
 				3703FF442294184500092CAF /* NSObject+Hg.m in Sources */,
 				3703FF09229406AB00092CAF /* HgMusicCell.m in Sources */,
+				37ACDA0722F296850080131E /* NewPagedFlowView.m in Sources */,
 				372413FA213AF9BD00F31961 /* UIColor+JXAdd.m in Sources */,
 				37ABBFCC219591D50018427B /* UIView+XBExtension.m in Sources */,
 				37241402213AF9BD00F31961 /* JXCategoryBaseCell.m in Sources */,
@@ -1096,6 +1120,7 @@
 				372413F2213AF9BD00F31961 /* JXCategoryTitleView.m in Sources */,
 				3703FF3122940CD100092CAF /* HgImageView.m in Sources */,
 				3703FF04229406AB00092CAF /* HgMusicViewController.m in Sources */,
+				3791B09622D33E67008FCDDB /* PGIndexBannerSubiew.m in Sources */,
 				370A216820AD862A00973F48 /* CategoryWelfareViewController.m in Sources */,
 				3771687F20A31C20001DD2D5 /* HomeViewController.m in Sources */,
 				3703FF11229406AB00092CAF /* HgMusicPlayerManager.m in Sources */,
@@ -1111,6 +1136,7 @@
 				37ABBFCF219591D50018427B /* XBSettingCell.m in Sources */,
 				37808A3A20B5CB6200E3F025 /* WYWebController.m in Sources */,
 				3703FF06229406AB00092CAF /* HgMusicListViewController.m in Sources */,
+				37ACDA0A22F297E70080131E /* PGCustomBannerView.m in Sources */,
 				372D429C20A443910022875A /* AboutViewController.m in Sources */,
 				3703FF41229414E000092CAF /* UIView+TXFrame.m in Sources */,
 				3703FF0E229406AB00092CAF /* HgLrcTableView.m in Sources */,

@@ -11,7 +11,6 @@
 
 @interface HomeViewController : BaseViewController
 
-@property(nonatomic,retain) UIImageView *imageView;
 @property(nonatomic,retain) UILabel * footerLabel;
 @property(nonatomic,retain) UILabel * d;
 @property(nonatomic,retain) UILabel * m;
